@@ -1,7 +1,7 @@
 # **JS-GameEngine**
 ### **Description:**
 A GameEngine made using only JavaScript, HTML, and CSS, designed specifically for _2D_ game development. To use this GameEngine, basic knowledge of vanilla JavaScript is recommended 
-![](./src/assets/hippo.PNG)
+![](./src/assets/hippogm.PNG)
 
 
 ### **Link To Site:**
