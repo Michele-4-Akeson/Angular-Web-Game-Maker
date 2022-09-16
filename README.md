@@ -5,7 +5,7 @@ A GameEngine made using only JavaScript, HTML, and CSS, designed specifically fo
 
 
 ### **Link To Site:**
-[site]https://cute-tapioca-403301.netlify.app/
+[site](https://cute-tapioca-403301.netlify.app/)
 
 ### **Early Project Demo:**
 [demo](https://youtu.be/22Wo9riPfmc)
