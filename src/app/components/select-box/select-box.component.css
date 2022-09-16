@@ -1,0 +1,15 @@
+select{
+    border: none;
+    outline: none;
+    background-color: rgb(233, 233, 233);
+    border-radius: 2px;
+    font-size:xx-small;
+    font-weight: 100;
+    font-family: 'Press Start 2P', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    padding: 3px;
+}
+
+select:focus{
+    background-color: rgb(255, 255, 255);
+    
+}

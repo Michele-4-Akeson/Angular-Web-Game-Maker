@@ -1,0 +1,9 @@
+<label>{{label}}:</label>
+<select #selectbox (change)="add()" (click)="add()" value="{{start}}">
+    <option *ngFor="let item of items" [value]="item.id? item.id : item.name? item.name : item">{{item.id? item.id : item.name? item.name : item}}</option>
+</select>
+
+
+
+  
+

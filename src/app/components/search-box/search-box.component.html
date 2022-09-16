@@ -1,0 +1,7 @@
+<div class="search-box-container">
+    <button class="pixelFont" (click)="setVisible()" >Add Ability  <fa-icon [icon]="searchIcon"></fa-icon></button>
+    <input *ngIf="searchVisible" list="x" name="x" (change)="select($event)" placeholder="{{hint}}">
+    <datalist id="x">
+        <option *ngFor="let item of items" [value]="item.id? item.id : item.name? item.name: item">{{item.id? item.id : item.name? item.name: item}}</option>
+    </datalist>
+</div>

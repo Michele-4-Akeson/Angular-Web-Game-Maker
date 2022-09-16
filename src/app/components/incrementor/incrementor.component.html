@@ -1,0 +1,21 @@
+
+<div class="noHighlight">
+    <label>{{label}}:</label>
+    <button class="fa-btn" (click)="minusBig()">
+        <fa-icon [icon]="minusIcon"></fa-icon>
+    </button>
+
+
+    <button class="fa-btn" (click)="minusSmall()">
+        <fa-icon [icon]="arrowDown"  ></fa-icon>
+    </button>
+    
+    <input type="number" name="value" (change)="setValue()" [(ngModel)]="value"/>
+    <button class="fa-btn"  (click)="plusSmall()">
+        <fa-icon [icon]="arrowUp" ></fa-icon>
+    </button>
+
+    <button class="fa-btn" (click)="plusBig()">
+        <fa-icon [icon]="plusIcon" ></fa-icon>
+    </button>
+</div>

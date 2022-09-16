@@ -1,0 +1,16 @@
+.fa-btn{
+    border-radius: 3px;
+    background-color:rgb(94, 88, 86);
+    margin: 2px;
+    transition: transform 0.2s;
+    color: white;
+}
+.fa-btn:hover{
+    background-color: rgb(148, 139, 134);
+    transform: scale(1.2);
+}
+
+.fa-btn:active{
+    background-color: var(--selectGreen);
+}
+

@@ -1,0 +1,63 @@
+
+<div class="containerHeader">
+    <h3 class="pixelFont">Inspector</h3>
+</div>
+
+<canvas #previewCanvas class="previewCanvas"></canvas>
+
+<input [ngStyle]="requireName?{'background-color':'red'}:{'background-color':'white'}" type="text" [value]="entity.getName()" placeholder="Name" (change)="setName($event)">
+<label *ngIf="requireName">A name is required to Save:</label>
+
+
+<div class="inspector-btn-container">
+    <button (click)="clearEntity()">New <fa-icon [icon]="addIcon"></fa-icon></button>
+    <button (click)="saveEntity()">Save <fa-icon [icon]="saveIcon"></fa-icon></button>
+</div>
+
+<form class="inspector-form">
+    <h3 class="inspectorHeader pixelFont">Attributes:</h3>
+    <div>
+        <app-select-box [items]="entity.getTags()" [start]="entity.getTag()" label="Tag" (onSelect)="setTag($event)"></app-select-box>
+    </div>
+    <div>
+        <app-incrementor label="Size" [value]="entity.getSize()" (onChange)="setSize($event)" [negative]="false"></app-incrementor>
+    </div>
+    <app-checkbox label="Dynamic" [isChecked]="entity.getDynamic()" (onCheck)="toggleDynamic($event)"></app-checkbox>
+    <app-checkbox label="BoxCollider" [isChecked]="entity.getBoxCollider()" (onCheck)="toggleBoxCollider($event)"></app-checkbox>
+    <div>
+        <app-checkbox label="BoxTrigger" [isChecked]="entity.getBoxTrigger().active" (onCheck)="toggleBoxTrigger($event)"></app-checkbox>
+        <app-incrementor *ngIf="entity.getBoxTrigger().active" label="Box Size" [value]="entity.getBoxTrigger().size" (onChange)="setBoxTriggerSize($event)" [negative]="false"></app-incrementor>
+    </div>
+
+    <div class="animationData">
+        <app-checkbox label="Animation" [isChecked]="entity.getAnimation().active" (onCheck)="toggleAnimation($event)"></app-checkbox>
+        <form  *ngIf="entity.getAnimation().active">
+            <div>
+                <label>Speed:</label>
+                <input type="number" value="{{entity.getAnimation().speed}}" (change)="setSpeed($event)"/>
+            </div>
+           <div>
+                <label>Left:</label>
+                <input type="number" value="{{entity.getAnimation().left}}"(change)="setLeft($event)"/>
+                <label>Right:</label>
+                <input type="number" value="{{entity.getAnimation().right}}" (change)="setRight($event)"/>
+           </div>
+           <div>
+            <label>Down:</label>
+            <input type="number" value="{{entity.getAnimation().down}}" (change)="setDown($event)"/>
+                <label>Up:</label>
+                <input type="number" value="{{entity.getAnimation().up}}" (change)="setUp($event)"/>
+           </div>
+           
+        </form>
+    </div>
+</form>
+
+<app-search-box [items]="entity.getDecoratorNames()" (onSelect)="addDecorator($event)" hint="..."></app-search-box>
+<div class="decorator-list">
+    <app-decorator-item *ngFor="let decorator of entity.getDecorators()" [decorator]="decorator"></app-decorator-item>
+</div>
+
+
+
+

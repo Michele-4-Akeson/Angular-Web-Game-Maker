@@ -1,0 +1,51 @@
+.sprite-selector-container {
+    position: relative;
+    width: fit-content;
+    border: solid 8px var(--brColor);
+    border-radius: 10px;
+    user-select: none;
+
+ }
+
+
+ .sprite-square {
+    position:absolute;
+    outline: 3px solid rgb(27, 241, 44);
+    left:0;
+    top:0;
+    
+ }
+
+
+
+
+ .savedBox{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    height: 25%;
+    max-height: 25%;
+    background-color: var(--smCnColor);
+    border-radius: 5px;
+    margin-bottom: 20px;
+   
+
+ }
+
+ .boxHeader{
+  background-color:var(--smHeader);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-left: 5%;
+  font-size: x-small;
+
+ }
+
+ .savedList{
+   height: 80%;
+   width: 100%;
+   overflow: auto;
+ }
+
+
+

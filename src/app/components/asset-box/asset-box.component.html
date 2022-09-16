@@ -1,0 +1,7 @@
+
+
+<div class="asset" (click)="selectEntity()" >
+    <label>Name:{{asset.name}}</label>
+    <label>Tag:{{asset.tag}}</label>
+    <fa-icon class="trash" [icon]="trashIcon" (click)="delete()">Delete</fa-icon>
+</div>

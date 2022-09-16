@@ -1,0 +1,104 @@
+
+.c{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 1;
+    margin-top: 0;
+    color: wheat;
+}
+
+.title{
+    transition: color 0.2s;
+}
+
+.title:hover{
+    animation: shake var(--animationTime) ease-in-out alternate infinite;
+    color: white;
+}
+
+svg:hover{
+    animation: shake var(--animationTime) ease-in-out alternate infinite;
+}
+
+
+#lightning{
+    opacity: 0;
+}
+
+
+svg:hover #lightning{
+    animation: show  var(--animationTime) ease-in-out alternate infinite;
+
+}
+
+
+svg:hover #bulbBorder{
+    animation: toRed  var(--animationTime) ease-in-out alternate infinite;
+}
+
+svg:hover #bulbInner{
+    animation: toRed  var(--animationTime) ease-in-out alternate infinite;
+}
+
+.button:hover{
+    transition: transform 0.1s;
+    transform: scale(1.1);
+    transform-origin: center;
+    transform-box: fill-box;
+    filter: brightness(75%);
+}
+
+
+@keyframes toRed{
+    to{
+        stroke: red;
+    }
+}
+
+
+@keyframes brighter {
+    from {
+        filter: brightness(90%);
+    }
+
+    to {
+        
+        filter: brightness(150%)
+    }
+}
+
+
+@keyframes show {
+   from{
+    opacity: 0;
+   }
+
+   to{
+    opacity: 1;
+   }
+    
+}
+
+
+
+
+@keyframes shake {
+    0%{
+      
+        transform: translateY(-1px) rotateZ(-1deg)
+  
+      }
+      25%{
+        transform: translateX(1px)  rotateZ(-2deg);
+      }
+        
+      50%{
+        transform: translateX(-1px) rotateZ(1deg);
+      }
+      100%{
+        transform: translateX(1px)  rotateZ(2deg);
+      }
+}

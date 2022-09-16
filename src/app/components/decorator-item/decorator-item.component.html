@@ -1,0 +1,28 @@
+
+
+
+
+<div class="decorator-container">
+    <div class="decoratorHeader pixelFont">
+        <h4>{{decorator.name}}:</h4>
+        <fa-icon class="trash" [icon]="trashIcon" (click)="remove()"></fa-icon>    
+    </div>
+
+    <div class="savedList">
+        <div *ngFor="let input of decorator.inputs">
+            <app-checkbox *ngIf="input.type == 'boolean'" label="{{input.name}}" [isChecked]="$any(input.value)" (onCheck)="sendValue(input.name, input.type, $event)"></app-checkbox>
+            <app-incrementor *ngIf="input.type == 'number'" label="{{input.name}}" [value]="$any(input.value)"  (onChange)="sendValue(input.name, input.type, $event)" [negative]="true"></app-incrementor>
+            <div *ngIf="input.type == 'string'">
+                <label>{{input.name}}:</label>
+                <input type="text" value="{{input.value}}" placeholder="{{input.name}}" (change)="getEventValue(input.name, input.type, $event)">
+            </div>
+            
+            <div>
+                <app-select-box  *ngIf="input.type == 'entity'" [items]="entity.getSavedEntities()" label="{{input.name}}" (onSelect)="sendValue(input.name, input.type, $event)"></app-select-box>
+            </div>
+        </div>
+
+    </div>
+    
+</div>
+

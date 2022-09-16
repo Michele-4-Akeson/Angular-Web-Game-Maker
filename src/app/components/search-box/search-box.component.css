@@ -1,0 +1,32 @@
+.search-box-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px;
+    width: 80%s;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-box-container button{
+    background-color: var(--smHeader);
+    color: whitesmoke;
+    border: none;
+    border-radius: 2px;
+    transition: transform 0.2s, background-color 0.2s;
+    width: fit-content;
+    font-size: x-small;
+}
+
+.search-box-container button:hover{
+    background-color:  rgb(101, 102, 109)
+}
+
+.search-box-container button:active{
+    background-color: var(--selectGreen);
+}
+
+.search-box-container input{
+    width: 60%;
+    font-size: xx-small;
+}
