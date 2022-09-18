@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EntityService } from 'src/app/services/entity.service';
 import { LevelService } from 'src/app/services/level.service';
 import GameManager from 'src/GameEngine/GameSystems/GameManager';
@@ -12,7 +12,7 @@ import { faEraser, faClose, faUpload, faMagnifyingGlassPlus, faMagnifyingGlassMi
 })
 
 
-export class GameViewComponent implements AfterViewInit, AfterViewChecked {
+export class GameViewComponent implements AfterViewInit {
   @ViewChild('gameview') gameView! : ElementRef
   gameManager:GameManager | undefined
   isPlaying:boolean = false
@@ -34,10 +34,12 @@ export class GameViewComponent implements AfterViewInit, AfterViewChecked {
   closeIcon = faClose
   export = faUpload
   constructor(private entityService:EntityService, private levelService:LevelService) { }
-  ngAfterViewChecked(): void {
-    this.gameManager?.resize()
-  }
+
   
+
+  
+
+
   
   
   
@@ -197,7 +199,7 @@ switchLayer(){
     this.showError = false
   } else {
     this.layer = "background"
-    this.errorMessage = "Note: Game Entities in the background layer don't animate - to save on performance :)"
+    this.errorMessage = "Note: Game Entities in background layer do not perform movement abilities"
     this.showError = true
   }
 

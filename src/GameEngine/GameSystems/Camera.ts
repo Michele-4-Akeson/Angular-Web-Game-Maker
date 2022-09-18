@@ -199,6 +199,7 @@ class Camera {
        
         
         this.setCameraView();
+        
         this.setToFollow(this.map!, this.target);
 
        
