@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EntityService } from 'src/app/services/entity.service';
 import { LevelService } from 'src/app/services/level.service';
 import GameManager from 'src/GameEngine/GameSystems/GameManager';
@@ -12,7 +12,7 @@ import { faEraser, faClose, faUpload, faMagnifyingGlassPlus, faMagnifyingGlassMi
 })
 
 
-export class GameViewComponent implements AfterViewInit {
+export class GameViewComponent implements AfterViewInit, AfterViewChecked {
   @ViewChild('gameview') gameView! : ElementRef
   gameManager:GameManager | undefined
   isPlaying:boolean = false
@@ -24,7 +24,7 @@ export class GameViewComponent implements AfterViewInit {
   rows:number = 32
   scale : number = 32
   errorMessage:string = ""
-  layer:string = "background"
+  layer:string = "mainground"
   eraserIcon = faEraser
   magPlusIcon = faMagnifyingGlassPlus
   magMinusIcon = faMagnifyingGlassMinus
@@ -34,6 +34,9 @@ export class GameViewComponent implements AfterViewInit {
   closeIcon = faClose
   export = faUpload
   constructor(private entityService:EntityService, private levelService:LevelService) { }
+  ngAfterViewChecked(): void {
+    this.gameManager?.resize()
+  }
   
   
   
@@ -41,7 +44,6 @@ export class GameViewComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     //console.log(this.gameView.nativeElement.children)
     this.gameManager = new GameManager(this.gameView.nativeElement.children)
-
     document.addEventListener("resize", (e:any)=>{
       this.gameManager?.resize()
     })
@@ -190,8 +192,14 @@ gameLoop(){
 
 
 switchLayer(){
-  if (this.layer == "background") this.layer = "mainground"
-  else this.layer = "background"
+  if (this.layer == "background") {
+    this.layer = "mainground"
+    this.showError = false
+  } else {
+    this.layer = "background"
+    this.errorMessage = "Note: Game Entities in the background layer don't animate - to save on performance :)"
+    this.showError = true
+  }
 
   this.levelService.setLayer(this.layer)
 }
