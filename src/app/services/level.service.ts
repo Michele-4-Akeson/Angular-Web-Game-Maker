@@ -17,7 +17,7 @@ export class LevelService implements Subject {
   constructor() { 
     this.levelData = {scale:32, columns:32, rows:32, background:[], mainground:[], foreground:[]}
     this.makeLevel()
-    this.layer = "background"
+    this.layer = "mainground"
   }
 
   getLevelData(){
