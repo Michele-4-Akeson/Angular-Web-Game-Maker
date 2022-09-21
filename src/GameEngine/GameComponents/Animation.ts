@@ -144,7 +144,7 @@ class Animation {
         this.left = left
         this.right = right
         this.up = up
-        this.down = 0
+        this.down = down
     }
 
 

@@ -45,7 +45,6 @@ class MovementController extends InputUser{
 
         }
         
-        console.log("M UPDATE")
         super.update()
     }
 
