@@ -1,6 +1,6 @@
 # **ANGULAR-GAME-MAKER: HIPPO ENGINE**
 ### **Description:**
-A GameEngine made using only JavaScript, HTML, and CSS, designed specifically for _2D_ game development. To use this GameEngine, basic knowledge of vanilla JavaScript is recommended 
+A web based Game Engine made using only Angular, Typscript, HTML, and CSS, designed specifically for _2D_ game development 
 ![](./src/assets/hippogm.PNG)
 
 
