@@ -1,13 +1,18 @@
 
 .c{
     display: flex;
-    flex-direction: row;
+    flex-direction: rowz;
     justify-content: center;
     align-items: center;
     width: 100%;
     z-index: 1;
     margin-top: 0;
     color: wheat;
+}
+
+.c_text{
+    fill: rgb(180, 155, 108);
+    font-size: 2px;
 }
 
 .title{
