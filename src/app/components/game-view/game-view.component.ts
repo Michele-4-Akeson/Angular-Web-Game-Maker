@@ -38,11 +38,6 @@ export class GameViewComponent implements AfterViewInit {
   
 
   
-
-
-  
-  
-  
   ngAfterViewInit(): void {
     //console.log(this.gameView.nativeElement.children)
     this.gameManager = new GameManager(this.gameView.nativeElement.children)

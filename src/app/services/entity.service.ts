@@ -27,9 +27,7 @@ export class EntityService implements Subject{
 
   private tags = [{id:" "}, {id:"Player"}, {id:"NPC"}, {id:"Enemy"}, {id:"Loot"}, {id:"Object"}, {id:"Item"}, {id:"Projectile"}, {id:"Platform"}, {id:"Tree"}]
   private decoratorNames = ["Gravity", "Attach", "Speed", "Bounce", "MovementController", "PlatformController", "Follow", "Travel", "DestroyedBy", "Health-Bar", "Activate Child on Collision", "Trigger Animation on Input"]
-  constructor() {
-    
-  }
+  constructor() {}
 
 
   getSize(){
@@ -201,10 +199,8 @@ export class EntityService implements Subject{
         d = {name:name, inputs:[this.newInput("frame", "number", "1"), this.newInput("input key", "string", "w")]}
         this.indexDecorator(d)
         break
-
-
-
     }
+
   }
 
   indexDecorator(decorator:Decorator){

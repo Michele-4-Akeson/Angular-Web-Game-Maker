@@ -13,6 +13,25 @@
     --animationTime:0.8s
 }
 
+
+::-webkit-scrollbar {
+    width: 1.0rem;
+    
+    
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #747070a6;
+    border-radius: 5px;
+    
+}
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+}
+
+
+
 html, body {
     margin:0px;
     overflow: hidden;
@@ -26,6 +45,23 @@ html, body {
     font-weight: 100;
 }
 
+.pageRows{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.pageColumns{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+    height: 50%;
+    flex: 1;
+    
+   
+}
+
 .container{
     background-color: var(--cnColor);
     border: solid var(--brColor);
@@ -35,7 +71,6 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
-
 }
 
 .hide{
@@ -69,22 +104,7 @@ html, body {
     flex-grow: 1;
 }
 
-.pageRows{
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
 
-.pageColumns{
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    width: 100%;
-    height: 100%;
-    flex: 1;
-    
-   
-}
 
 label{
     font-family: 'Press Start 2P', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
