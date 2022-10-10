@@ -11,8 +11,6 @@
    border-radius: 5px;
    border: solid var(--brColor);
    position: absolute;
-   width: 98%;
-   height: 95%;
  }
 
  .backgroundLayer{
