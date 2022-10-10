@@ -19,7 +19,7 @@ This Game Maker is designed to help users design simple 2D games (either top-dow
 
 
 #### **NOTE:**
-This is the provided public repo for the Angular Web Game Maker (informally known by many as "Hippo Engine", "Pain Main", "Big Water Rino - the Game Editor", and so on...). It's a fun little passion project that hope you get the chance to mess aorund with!  
+This is the provided public repo for the Angular Web Game Maker (informally known by many as "Hippo Engine", "Pain Main", "Big Water Rino - the Game Editor", and so on...). It's a fun little passion project that I hope you get the chance to mess aorund with!  
 
 
 ### **TO DO:**
