@@ -65,11 +65,13 @@ class Animation {
         this.visible = true  
 
         this.callFunction = null
+
         this.pairedAnimation = false;
         this.pairedEndingAnimation = false;
 
         this.triggeredAnimation = false;
         this.triggeredEndAnimation = false;
+
         this.previousFrameY = 0;
         this.previousActiveState = false;
 
@@ -149,25 +151,28 @@ class Animation {
 
 
     setDirection(direction:string){
-        switch(direction){
-            case "left":
-                this.currentFrameY = this.left
-                break
-            case "right":
-                this.currentFrameY = this.right
-                break
-            case "up":
-                this.currentFrameY = this.up
-                break
-            case "down":
-                this.currentFrameY = this.down
-                break
-            case "stop":
-                this.currentFrameX = 0
-                break
-            default:
-                this.currentFrameX = 0
+        if (!this.isRunningAnimation()){
+            switch(direction){
+                case "left":
+                    this.currentFrameY = this.left
+                    break
+                case "right":
+                    this.currentFrameY = this.right
+                    break
+                case "up":
+                    this.currentFrameY = this.up
+                    break
+                case "down":
+                    this.currentFrameY = this.down
+                    break
+                case "stop":
+                    this.currentFrameX = 0
+                    break
+                default:
+                    this.currentFrameX = 0
+            }
         }
+       
     }
 
 
@@ -184,6 +189,11 @@ class Animation {
     ///////////////////////////////////////////////////////////////
     // CONTROLLED ANIMATIONS
     //////////////////////////////////////////////////////////////
+
+
+    isRunningAnimation(){
+        return this.pairedAnimation || this.pairedEndingAnimation || this.triggeredAnimation || this.triggeredEndAnimation
+    }
 
     /**
      * sets the animation to run through a specified animation starting at the 

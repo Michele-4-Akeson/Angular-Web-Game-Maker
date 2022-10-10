@@ -42,13 +42,13 @@ class PlatformerController extends InputUser{
         }
 
         if (this.isJumping){
-            if (this.jumpTimeLeft > 0){
+            if (this.jumpTimeLeft > 0 && !this.getBoxCollider()?.sideHasCollision("up")){
                 this.getTransform().moveY(-this.jumpForce)
                 this.jumpTimeLeft -= 0.01
             } else {
                 this.isJumping = false
             }
-        }
+        } 
 
 
       
@@ -69,6 +69,8 @@ class PlatformerController extends InputUser{
         }
 
     }
+
+
 
     isStopped(){
         return !(this.input.isKeyDown("ArrowLeft") || this.input.isKeyDown("ArrowRight"))
