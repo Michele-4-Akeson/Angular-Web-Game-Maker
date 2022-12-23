@@ -1,6 +1,6 @@
 import Animation from "../GameComponents/Animation"
-import BoxCollider from "../GameComponents/BoxCollider"
 import BoxTrigger from "../GameComponents/BoxTrigger"
+import Spritesheet from "../GameComponents/Spritesheet"
 import AttachEntity from "../GameObjects/Decorators/AttachEntity"
 import Bounce from "../GameObjects/Decorators/Bounce"
 import DestroyedBy from "../GameObjects/Decorators/DestroyedBy"
@@ -185,7 +185,8 @@ class LevelGenerator{
 
 
     createAnimation(animation:AnimationData):Animation{
-        let newAnimation = new Animation(animation.spritesheet!, animation.xFrame, animation.yFrame, animation.speed, animation.active)
+        let spritesheet = new Spritesheet(document.getElementById(animation.spritesheet!.id) as HTMLImageElement, animation.spritesheet!.squareSize!) 
+        let newAnimation = new Animation(spritesheet, animation.xFrame, animation.yFrame, animation.speed, animation.active)
         if (animation.active) newAnimation.setDirectionalFrames(animation.left, animation.right, animation.up, animation.down)
 
         return newAnimation

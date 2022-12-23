@@ -1,7 +1,7 @@
-import Spritesheet from "src/GameEngine/GameComponents/Spritesheet"
+import { SpritesheetData } from "./SpritesheetData"
 
 export interface AnimationData{
-    spritesheet: Spritesheet | null
+    spritesheet: SpritesheetData | null
     xFrame:number, 
     yFrame:number, 
     frameSize:number, 

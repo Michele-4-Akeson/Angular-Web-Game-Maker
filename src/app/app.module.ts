@@ -14,17 +14,14 @@ import { DecoratorItemComponent } from './components/decorator-item/decorator-it
 import { AssetBoxComponent } from './components/asset-box/asset-box.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ControllerSvgComponent } from './components/controller-svg/controller-svg.component';
+
+import { AppRoutingModule } from './routing/app-routing.module';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
-
-import { Routes, RouterModule } from '@angular/router';
-import { GameBuilderComponent } from './components/pages/game-builder/game-builder.component';
-import { HomeComponent } from './components/pages/home/home.component';
-import { BuildPageComponent } from './components/pages/build-page/build-page.component';
-import { PlayPageComponent } from './components/pages/play-page/play-page.component';
+import { HomePageComponent } from './components/pages/home-page/home-page.component';
+import { PrivateGamesPageComponent } from './components/pages/private-games-page/private-games-page.component';
 import { PublicGamesComponent } from './components/pages/public-games/public-games.component';
-import { AuthGuard } from './guard/auth.guard';
-
-
+import { PlayPageComponent } from './components/pages/play-page/play-page.component';
+import { BuildPageComponent } from './components/pages/build-page/build-page.component';
 
 @NgModule({
   declarations: [
@@ -40,15 +37,15 @@ import { AuthGuard } from './guard/auth.guard';
     AssetBoxComponent,
     ControllerSvgComponent,
     LoginPageComponent,
-    GameBuilderComponent,
+    HomePageComponent,
+    PrivateGamesPageComponent,
+    PublicGamesComponent,
+    PlayPageComponent,
+    BuildPageComponent,
+    
   ],
   imports: [
-    BrowserModule, FormsModule, FontAwesomeModule, 
-    RouterModule.forRoot([{path:"", component:LoginPageComponent},
-    {path:"home", component:HomeComponent, children:[
-      {path:"your-games", component:BuildPageComponent, children:[{path:"builder", component:GameBuilderComponent}]},
-      {path:"public-games", component:PublicGamesComponent, children:[{path:"play", component:PlayPageComponent}]}
-    ], canActivate:[AuthGuard]}])
+    BrowserModule, FormsModule, FontAwesomeModule, AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

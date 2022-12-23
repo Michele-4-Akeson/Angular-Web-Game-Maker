@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import Spritesheet from 'src/GameEngine/GameComponents/Spritesheet';
 import { Decorator } from 'src/GameEngine/Interfaces/Decorator';
 import { Entity } from 'src/GameEngine/Interfaces/Entity';
+import { SpritesheetData } from 'src/GameEngine/Interfaces/SpritesheetData';
 import { AnimationData } from '../../GameEngine/Interfaces/AnimationData';
 
 import { Subject } from '../interfaces/Subject';
@@ -20,10 +21,11 @@ export class EntityService implements Subject{
   private sizeMultiplyer:number = 1
   private boxCollider:boolean = false
   private boxTrigger = {active:false, size:1}
+  // animationData -- spritesheet needs to get swicthed to {id:str, url:str, squareSize:number}
   private animation: AnimationData = { spritesheet: null, xFrame:0, yFrame:0, frameSize:0, speed:0, active:false, left: 0, right:0, up:0, down:0}
   private decorators:Decorator[] = []
   private subscribers:Subscriber[] = []
-  private savedEntities:Entity[] = []
+  public savedEntities:Entity[] = []
 
   private tags = [{id:" "}, {id:"Player"}, {id:"NPC"}, {id:"Enemy"}, {id:"Loot"}, {id:"Object"}, {id:"Item"}, {id:"Projectile"}, {id:"Platform"}, {id:"Tree"}]
   private decoratorNames = ["Gravity", "Attach", "Speed", "Bounce", "MovementController", "PlatformController", "Follow", "Travel", "DestroyedBy", "Health-Bar", "Activate Child on Collision", "Trigger Animation on Input"]
@@ -74,7 +76,7 @@ export class EntityService implements Subject{
     return this.animation
   }
 
-  setSpriteSheet(spritesheet:Spritesheet, frameX:number, frameY:number){
+  setSpriteSheet(spritesheet:SpritesheetData, frameX:number, frameY:number){
     this.animation.spritesheet = spritesheet
     this.animation.frameSize = spritesheet.squareSize
     this.animation.xFrame = frameX
@@ -82,8 +84,8 @@ export class EntityService implements Subject{
     this.updateSubscribers()
   }
 
-  getImage(){
-    return this.animation.spritesheet?.sprite
+  getImage():HTMLImageElement{
+    return document.getElementById(this.animation.spritesheet!.id) as HTMLImageElement
   }
 
   setAnimationActive(active:boolean){

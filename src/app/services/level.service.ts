@@ -2,15 +2,18 @@ import { Injectable } from '@angular/core';
 import Spritesheet from 'src/GameEngine/GameComponents/Spritesheet';
 import GameManager from 'src/GameEngine/GameSystems/GameManager';
 import { Entity } from 'src/GameEngine/Interfaces/Entity';
+import { GameData } from 'src/GameEngine/Interfaces/GameData';
 import { LevelData } from 'src/GameEngine/Interfaces/LevelData';
 
 import { Subject } from '../interfaces/Subject';
 import { Subscriber } from '../interfaces/Subscriber';
+import { BackendService } from './backend.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LevelService implements Subject {
+  public name:string = ""
   private levelData:LevelData
   private layer: string
   private subscribers:Subscriber[] = []
@@ -28,10 +31,6 @@ export class LevelService implements Subject {
     return this.levelData.scale
   }
 
-  printLayers(){
-    //console.log(this.levelData.background)
-   // console.log(this.levelData.mainground)
-  }
 
   getColumns(){
     return this.levelData.columns
@@ -131,6 +130,7 @@ export class LevelService implements Subject {
     }
   }
 
+ 
 
   exportToJsonFile() {
     let dataStr = JSON.stringify(this.levelData);
@@ -158,6 +158,20 @@ export class LevelService implements Subject {
     }
 
   }
+
+
+
+  /*
+  Editor Prep
+  */
+
+  loadGameData(data:GameData){
+    this.name = data.name
+    this.levelData = data.levelData
+  }
+
+
+  
 
 
 

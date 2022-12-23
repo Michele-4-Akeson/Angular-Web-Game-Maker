@@ -3,6 +3,7 @@ import { EntityService } from 'src/app/services/entity.service';
 import { LevelService } from 'src/app/services/level.service';
 import GameManager from 'src/GameEngine/GameSystems/GameManager';
 import { faEraser, faClose, faUpload, faMagnifyingGlassPlus, faMagnifyingGlassMinus, faChartArea, faPlayCircle, faPauseCircle } from '@fortawesome/free-solid-svg-icons';
+import { BackendService } from 'src/app/services/backend.service';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class GameViewComponent implements AfterViewInit {
   pauseIcon = faPauseCircle
   closeIcon = faClose
   export = faUpload
-  constructor(private entityService:EntityService, private levelService:LevelService) { }
+  constructor(private entityService:EntityService, private levelService:LevelService, private backendService:BackendService) { }
 
   
 
@@ -81,6 +82,9 @@ export class GameViewComponent implements AfterViewInit {
       }
       
     })
+
+
+    this.preview()
 
   }
 
@@ -204,6 +208,14 @@ switchLayer(){
 
 exportJson(){
   this.levelService.exportToJsonFile()
+}
+
+
+/**
+ * calls the service perform a post request to the backend, adding the games data
+ */
+saveGame(){
+  this.backendService.saveGame()
 }
 
 }

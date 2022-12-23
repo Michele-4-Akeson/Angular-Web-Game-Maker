@@ -1,4 +1,3 @@
-import Spritesheet from "src/GameEngine/GameComponents/Spritesheet"
 import { Entity } from "./Entity"
 
 export interface LevelData{

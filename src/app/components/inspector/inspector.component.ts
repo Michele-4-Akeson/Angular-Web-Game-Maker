@@ -18,7 +18,8 @@ export class InspectorComponent implements OnInit, Subscriber, AfterViewInit {
   constructor(public entity:EntityService) {
     this.subscribe()
 
-   }
+  }
+
   ngAfterViewInit(): void {
     this.previewCanvas.nativeElement.width = 64
     this.previewCanvas.nativeElement.height = 64

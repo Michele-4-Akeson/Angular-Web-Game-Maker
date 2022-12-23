@@ -1,16 +1,14 @@
-<mat-form-field appearance="fill">
-    <mat-label>Input</mat-label>
-    <input matInput>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Select</mat-label>
-    <mat-select>
-      <mat-option value="one">First option</mat-option>
-      <mat-option value="two">Second option</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field appearance="fill">
-    <mat-label>Textarea</mat-label>
-    <textarea matInput></textarea>
-  </mat-form-field>
-  
+<form *ngIf="loggingIn">
+  <p>{{errorMessage}}</p>
+  <input name="username" required value="username" type="text" [(ngModel)]="username"/>
+  <input name="password" required value="password" type="password" [(ngModel)]="password"/>
+  <button (click)="login()">Login</button>
+</form>
+
+<form *ngIf="!loggingIn">
+  <p>{{errorMessage}}</p>
+  <input name="username" required type="text" [(ngModel)]="username"/>
+  <input name="password" required type="text" [(ngModel)]="password"/>
+  <button (click)="register()">Register</button>
+</form>
+<button (click)="toggle()">{{pageText}}</button>

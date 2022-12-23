@@ -1,0 +1,14 @@
+
+<button (click)="showNewGame=!showNewGame">Create New Game</button>
+<form *ngIf="showNewGame">
+    <input placeholder="your game's name" name="gameName" type="text" [(ngModel)]="gameName"/>
+    <button (click)="createNewGame()">Create</button>
+</form>
+<div *ngFor="let game of backendService.games">
+    <div class="game-item" (click)="openEditor(game.name)">
+        <label>Name:{{game.name}}</label>
+        <label>Date:{{game.date}}</label>
+        <fa-icon class="trash" [icon]="trashIcon">Delete</fa-icon>
+    </div>
+</div>
+

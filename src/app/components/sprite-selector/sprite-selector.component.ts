@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Subscriber } from 'src/app/interfaces/Subscriber';
 import { EntityService } from 'src/app/services/entity.service';
 import Spritesheet from 'src/GameEngine/GameComponents/Spritesheet';
+import { SpritesheetData } from 'src/GameEngine/Interfaces/SpritesheetData';
 
 @Component({
   selector: 'app-sprite-selector',
@@ -58,7 +59,8 @@ export class SpriteSelectorComponent implements OnInit, AfterViewInit, Subscribe
     const mouseY = e.clientY - y;
     this.frameX = Math.floor(mouseX / this.frameSize)
     this.frameY = Math.floor(mouseY / this.frameSize)
-    this.entity.setSpriteSheet(new Spritesheet(this.selectedImage!, this.frameSize), this.frameX, this.frameY)
+    const sprite :SpritesheetData = {id:this.selectedImage?.id!, url:this.selectedImage?.src!, squareSize:this.frameSize}
+    this.entity.setSpriteSheet(sprite, this.frameX, this.frameY)
 
  }
 
