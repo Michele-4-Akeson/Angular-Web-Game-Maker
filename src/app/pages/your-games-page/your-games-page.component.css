@@ -1,0 +1,53 @@
+.asset{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    transition: background-color 0.3s;
+    user-select: none;
+}
+
+.asset:hover{
+    background-color: var(--smHeader);
+}
+
+.asset:active{
+    background-color: var(--selectGreen)
+}
+
+.trash{
+    transition: transform 0.4s;
+}
+
+.trash:hover{
+    transform: scale(1.3);
+    color: rgb(216, 10, 10);
+}
+
+
+.Shared{
+    transform: scale(1.3);
+    transition: transform 0.4s;
+    color: #0ad833;
+ 
+}
+
+.Shared:hover{
+    transform: scale(1);
+    color: #000000;
+    
+}
+
+
+.NotShared{
+    transition: transform 0.4s;
+    color: #000000
+}
+
+.NotShared:hover{
+    transform: scale(1.3);
+    color: #0ad833;
+}
+
+
+

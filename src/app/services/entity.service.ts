@@ -1,6 +1,4 @@
-import { Type } from '@angular/compiler';
 import { Injectable } from '@angular/core';
-import Spritesheet from 'src/GameEngine/GameComponents/Spritesheet';
 import { Decorator } from 'src/GameEngine/Interfaces/Decorator';
 import { Entity } from 'src/GameEngine/Interfaces/Entity';
 import { SpritesheetData } from 'src/GameEngine/Interfaces/SpritesheetData';

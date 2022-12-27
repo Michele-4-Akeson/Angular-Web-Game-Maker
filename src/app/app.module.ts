@@ -16,12 +16,13 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ControllerSvgComponent } from './components/controller-svg/controller-svg.component';
 
 import { AppRoutingModule } from './routing/app-routing.module';
-import { LoginPageComponent } from './components/pages/login-page/login-page.component';
-import { HomePageComponent } from './components/pages/home-page/home-page.component';
-import { PrivateGamesPageComponent } from './components/pages/private-games-page/private-games-page.component';
-import { PublicGamesComponent } from './components/pages/public-games/public-games.component';
-import { PlayPageComponent } from './components/pages/play-page/play-page.component';
-import { BuildPageComponent } from './components/pages/build-page/build-page.component';
+
+import { YourGamesPageComponent } from './pages/your-games-page/your-games-page.component';
+import { SharedGamesPageComponent } from './pages/shared-games-page/shared-games-page.component';
+import { EditorPageComponent } from './pages/editor-page/editor-page.component';
+import { GamePageComponent } from './pages/game-page/game-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RobotSVGComponent } from './components/robot-svg/robot-svg.component';
 
 @NgModule({
   declarations: [
@@ -37,11 +38,11 @@ import { BuildPageComponent } from './components/pages/build-page/build-page.com
     AssetBoxComponent,
     ControllerSvgComponent,
     LoginPageComponent,
-    HomePageComponent,
-    PrivateGamesPageComponent,
-    PublicGamesComponent,
-    PlayPageComponent,
-    BuildPageComponent,
+    YourGamesPageComponent,
+    SharedGamesPageComponent,
+    EditorPageComponent,
+    GamePageComponent,
+    RobotSVGComponent,
     
   ],
   imports: [

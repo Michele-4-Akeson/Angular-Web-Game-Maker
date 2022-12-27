@@ -1,0 +1,9 @@
+<div *ngFor="let game of profile.games">
+    <div class="asset" (click)="openGame(game.name, game.id)">
+        <label>Name:{{game.name}}</label>
+        <label>Date:{{game.date}}</label> 
+        <label>Creator:{{game.by}}</label>
+    </div>
+    
+
+</div>

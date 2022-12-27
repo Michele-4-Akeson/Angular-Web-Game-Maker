@@ -3,7 +3,7 @@ import { EntityService } from 'src/app/services/entity.service';
 import { LevelService } from 'src/app/services/level.service';
 import GameManager from 'src/GameEngine/GameSystems/GameManager';
 import { faEraser, faClose, faUpload, faMagnifyingGlassPlus, faMagnifyingGlassMinus, faChartArea, faPlayCircle, faPauseCircle } from '@fortawesome/free-solid-svg-icons';
-import { BackendService } from 'src/app/services/backend.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class GameViewComponent implements AfterViewInit {
   pauseIcon = faPauseCircle
   closeIcon = faClose
   export = faUpload
-  constructor(private entityService:EntityService, private levelService:LevelService, private backendService:BackendService) { }
+  constructor(private entityService:EntityService, private levelService:LevelService, private profile:ProfileService) { }
 
   
 
@@ -83,8 +83,9 @@ export class GameViewComponent implements AfterViewInit {
       
     })
 
-
-    this.preview()
+    setTimeout(()=>{
+      this.preview()
+    }, 500)
 
   }
 
@@ -188,7 +189,6 @@ play(){
 gameLoop(){
   this.gameManager?.update()
   this.id = requestAnimationFrame(this.gameLoop.bind(this))
-  console.log("x")
 }
 
 
@@ -215,7 +215,8 @@ exportJson(){
  * calls the service perform a post request to the backend, adding the games data
  */
 saveGame(){
-  this.backendService.saveGame()
+  this.profile.saveGame()
 }
+
 
 }

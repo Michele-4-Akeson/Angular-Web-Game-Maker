@@ -51,11 +51,11 @@ EXPRESS ROUTERS
 */
 
 const profileRoute = require("./Routes/profileRoute")
-const publishedGameRoute = require("./Routes/publishedGameRoute")
+const gamesRoute = require("./Routes/GameRoute")
 
 
 app.use("/profile", profileRoute);
-app.use("/publishGame", publishedGameRoute)
+app.use("/game", gamesRoute)
 
 
 

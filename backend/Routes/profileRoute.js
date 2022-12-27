@@ -59,51 +59,6 @@ router.post("/", async function(req, res){
 
 })
 
-/**
- * checks database for profile with a given game:
- *  if game exsists, the game is updated with new data
- *  otherwise, the game is added as a new game to the profile
- */
-router.post("/game", async function(req, res){
-    try{
-        console.log("POST/game REQUEST CALLED");
-        const token = req.body.token;
-        const gameData = req.body.gameData;
-        
-        const updateResult = await Profile.updateOne({token:token}, {$push:{games:gameData}});
-
-        console.log(updateResult)
-        res.json({success:updateResult.modifiedCount == 1});
-        
-
-    } catch (error){
-        console.log(error);
-    }
-    
-})
-
-
-/**
- * updates an exsisting game in the database
- */
-router.put("/game", async function(req, res){
-    try{
-        console.log("POST/game REQUEST CALLED");
-        const token = req.body.token;
-        const gameData = req.body.gameData;
-        
-        const updateResult = await Profile.updateOne({token:token}, {$set:{"games.$[element]":gameData}}, {arrayFilters:[{"element.name":gameData.name}]});
-
-        console.log(updateResult)
-        res.json({success:updateResult.modifiedCount == 1});
-        
-
-    } catch (error){
-        console.log(error);
-    }
-    
-})
-
 
 
 

@@ -1,0 +1,18 @@
+<form (ngSubmit)="createGame()">
+    <label>Name of your Game</label>
+    <input type="text" name="gameName" placeholder="gameName" [(ngModel)]="gameName"/>
+    <button type="submit">Create Game</button>
+</form>
+<div *ngFor="let game of profile.games">
+    <div class="asset">
+        <div (click)="openEditor(game.name, game.id)">
+            <label>Name:{{game.name}}</label>
+            <label>Date:{{game.date}}</label>  
+        </div>
+    
+        <fa-icon *ngIf="game.shared" class="Shared" [icon]="shareIcon" title="stop sharing {{game.name}}" (click)="toggleShare(game.name, game.id)"></fa-icon>
+        <fa-icon *ngIf="!game.shared" class="NotShared" [icon]="shareIcon" title="share {{game.name}} with out" (click)="toggleShare(game.name, game.id)"></fa-icon>
+        <fa-icon class="trash" [icon]="trashIcon" title="delete {{game.name}}" (click)="delete(game.name, game.id)"></fa-icon>
+    </div>
+
+</div>

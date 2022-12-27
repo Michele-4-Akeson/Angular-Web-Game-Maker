@@ -1,19 +1,18 @@
 import { Injectable } from '@angular/core';
-import Spritesheet from 'src/GameEngine/GameComponents/Spritesheet';
-import GameManager from 'src/GameEngine/GameSystems/GameManager';
 import { Entity } from 'src/GameEngine/Interfaces/Entity';
-import { GameData } from 'src/GameEngine/Interfaces/GameData';
+import { HippoGame } from 'src/GameEngine/Interfaces/HippoGame';
 import { LevelData } from 'src/GameEngine/Interfaces/LevelData';
 
 import { Subject } from '../interfaces/Subject';
 import { Subscriber } from '../interfaces/Subscriber';
-import { BackendService } from './backend.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LevelService implements Subject {
   public name:string = ""
+  public id:string = ""
+  public shared:boolean = false
   private levelData:LevelData
   private layer: string
   private subscribers:Subscriber[] = []
@@ -165,9 +164,11 @@ export class LevelService implements Subject {
   Editor Prep
   */
 
-  loadGameData(data:GameData){
+  loadGame(data:HippoGame){
     this.name = data.name
-    this.levelData = data.levelData
+    this.shared = data.shared
+    this.id = data.id
+    this.levelData = data.gameData.levelData
   }
 
 

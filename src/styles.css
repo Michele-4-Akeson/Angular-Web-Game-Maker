@@ -10,7 +10,9 @@
     --smCnColor:rgb(73, 71, 88);
     --smHeader:rgb(81, 78, 102);
     --selectGreen: rgb(20, 167, 20);
-    --animationTime:0.8s
+    --buttonColor:rgb(191, 126, 206);
+    --textColor:white;
+    --animationTime:0.8s;
 }
 
 
@@ -35,7 +37,7 @@
 html, body {
     margin:0px;
     overflow: hidden;
-    background-color: var(--bgColor);
+    background-image: linear-gradient(to bottom right, var(--bgColor), rgb(31, 29, 42));
 
   }
 
