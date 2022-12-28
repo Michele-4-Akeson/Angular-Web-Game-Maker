@@ -16,7 +16,7 @@ const routes: Routes = [
   {path:"hippo-home", component:HomePageComponent, canActivate:[AuthGuard]},
   {path:"your-hippo-games", component:YourGamesPageComponent, canActivate:[AuthGuard]},
   {path:"shared-hippo-games", component:SharedGamesPageComponent, canActivate:[AuthGuard]},
-  {path:"hippo-game-builder", component:EditorPageComponent, canActivate:[AuthGuard]},
+  {path:"hippo-game-builder", component:EditorPageComponent},
   {path:"hippo-game", component:GamePageComponent, canActivate:[AuthGuard]},
   {path:"**", redirectTo:""}
 

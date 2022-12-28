@@ -191,7 +191,8 @@ class GameManager implements Subject {
         let object;
         for (let x = this.loadingArea.x_min; x < this.loadingArea.x_max; x++) {
             for (let y = this.loadingArea.y_min; y < this.loadingArea.y_max; y++) {
-                object = map[y * this.loadedLevel!.columns + x];// Object located at relative map location
+                // Object located at relative map location -- (column x, row y)
+                object = map[y * this.loadedLevel!.columns + x];
 
                 if (object != null) {
                     if (object != this.camera.target) {

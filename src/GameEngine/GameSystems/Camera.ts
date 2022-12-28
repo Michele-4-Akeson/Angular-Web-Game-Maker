@@ -142,7 +142,6 @@ class Camera {
         let object;
 
 
-        // sets all objects in view to active
         for (let x = x_min; x < x_max; x++) {
             for (let y = y_min; y < y_max; y++) {
                 object = map.mainground[(y * map.columns) + x];// Object located at relative map location

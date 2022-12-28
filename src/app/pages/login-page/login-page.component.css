@@ -128,3 +128,13 @@ RADIO BUTTONS
 }
 
 
+
+a{
+  margin-top: 5px;
+  color: rgb(163, 75, 245);
+  transition:color 0.5s;
+}
+
+a:hover{
+  color: rgb(196, 148, 241);
+}
