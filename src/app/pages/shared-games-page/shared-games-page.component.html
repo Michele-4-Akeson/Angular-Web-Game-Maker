@@ -1,9 +1,14 @@
-<div *ngFor="let game of profile.games">
-    <div class="asset" (click)="openGame(game.name, game.id)">
-        <label>Name:{{game.name}}</label>
-        <label>Date:{{game.date}}</label> 
-        <label>Creator:{{game.by}}</label>
+<div class="game-container">
+    <div (click)="openGame(game.name, game.id)" class="game-item" *ngFor="let game of profile.games">
+            <div class="game-item-text pixelFont">
+                <h4>{{game.name}}</h4>
+                <h5>By:{{game.by}}</h5>
+                <label>Created:{{game.date}}</label>  
+            </div>     
     </div>
-    
+
+
+
+
 
 </div>

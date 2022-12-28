@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileService } from 'src/app/services/profile.service';
 
+const loginAccount = "Login To Your Account:"
+const createAccount = "Create A New Account:"
+
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -11,7 +15,7 @@ export class LoginPageComponent {
   username:string = this.profile.username
   password:string = this.profile.password
   loggingIn:boolean = true
-  message:string = "Login To Your Account"
+  message:string = loginAccount
   pageText:string = "Login"
   constructor(private profile:ProfileService, private router:Router) { }
 
@@ -36,10 +40,11 @@ export class LoginPageComponent {
     console.log(this.username, this.password)
     if (this.username != "" && this.password != ""){
       let response = await this.profile.login(this.username, this.password)
-      //route to home
-      console.log(response)
+      this.message = "loading..."
       if (!response){
         alert("unable to login to account")
+        this.message = loginAccount
+
 
       }
       
@@ -47,20 +52,28 @@ export class LoginPageComponent {
       alert("unable to register new account: 'missing username or password'")
 
     }
+
+
   }
    
 
   async register(){
     if (this.username != "" && this.password != ""){
       let response = await this.profile.register(this.username, this.password) 
+      this.message = "loading..."
+
       if (!response){
         alert("unable to register new account: 'username already in use'")
+        
         
       }
     } else {
       alert("unable to register new account: 'missing username or password'")
 
     }
+
+    this.message = createAccount
+
   }
 
 

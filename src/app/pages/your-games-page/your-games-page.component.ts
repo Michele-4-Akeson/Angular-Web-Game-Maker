@@ -1,6 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { faHippo } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faHippo, faGamepad, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -12,8 +11,10 @@ import { ProfileService } from 'src/app/services/profile.service';
 
 export class YourGamesPageComponent implements AfterViewInit {
   gameName:string = ""
+  creatingGame:boolean = false
   trashIcon = faTrash
   shareIcon = faHippo
+  createIcon = faPlus
 
   constructor(public profile:ProfileService){}
   ngAfterViewInit(): void {
@@ -24,7 +25,9 @@ export class YourGamesPageComponent implements AfterViewInit {
   async createGame(){
     if (this.gameName != ""){
       let isGameCreated = await this.profile.createGame(this.gameName)
-      console.log(isGameCreated)
+      
+      this.creatingGame = false
+      this.gameName = ""
     }
   }
 

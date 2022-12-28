@@ -1,31 +1,28 @@
 
-.c{
+.controller-container{
     display: flex;
-    flex-direction: rowz;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
+    height: 100%;
     z-index: 1;
     margin-top: 0;
     color: wheat;
-}
-
-.c_text{
-    fill: rgb(180, 155, 108);
-    font-size: 2px;
+    cursor: pointer;
 }
 
 .title{
-    transition: color 0.2s;
+    transition: color 0.3s;
 }
 
-.title:hover{
+.controller-container:hover svg{
     animation: shake var(--animationTime) ease-in-out alternate infinite;
-    color: white;
+
 }
 
-svg:hover{
-    animation: shake var(--animationTime) ease-in-out alternate infinite;
+.controller-container:hover .title{
+    color: aliceblue;
 }
 
 
@@ -34,17 +31,17 @@ svg:hover{
 }
 
 
-svg:hover #lightning{
+.controller-container:hover #lightning{
     animation: show  var(--animationTime) ease-in-out alternate infinite;
 
 }
 
 
-svg:hover #bulbBorder{
+.controller-container:hover #bulbBorder{
     animation: toRed  var(--animationTime) ease-in-out alternate infinite;
 }
 
-svg:hover #bulbInner{
+.controller-container:hover #bulbInner{
     animation: toRed  var(--animationTime) ease-in-out alternate infinite;
 }
 

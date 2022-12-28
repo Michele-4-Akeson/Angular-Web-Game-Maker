@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import gsap from 'gsap';
 @Component({
   selector: 'app-controller-svg',
@@ -8,7 +8,13 @@ import gsap from 'gsap';
 export class ControllerSvgComponent implements OnInit, AfterViewInit {
   @ViewChild('controller') controller!:ElementRef
   timeline = gsap.timeline({paused:true, repeat:-1, yoyo:true})
+  @Input() text?:string = ""
+
   constructor() { }
+
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
   ngAfterViewInit(): void {
     this.timeline.add(this.pressButton("#yellowButton", "yellow", "#edd551"))
     .add(this.pressButton("#yellowButton", "yellow", "#edd551"))
@@ -33,9 +39,9 @@ export class ControllerSvgComponent implements OnInit, AfterViewInit {
     
   }
 
-  ngOnInit(): void {
-    
-  }
+
+
+
 
   pressButton(id:string, color:string, orignal:string){
     let timeline = gsap.timeline();

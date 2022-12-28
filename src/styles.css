@@ -11,8 +11,9 @@
     --smHeader:rgb(81, 78, 102);
     --selectGreen: rgb(20, 167, 20);
     --buttonColor:rgb(191, 126, 206);
-    --textColor:white;
-    --animationTime:0.8s;
+    --highlightText:white;
+    --textColor:wheat;
+    --animationTime:1s;
 }
 
 

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProfileService } from 'src/app/services/profile.service';
-
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent {
+  signOut = faSignOutAlt
   constructor(private profile:ProfileService, private router:Router){}
 
   async goTo(route:string){
@@ -25,6 +26,9 @@ export class HomePageComponent {
           this.router.navigate([route])
         }
         break
+      
+      case "":
+        this.router.navigate([""])
     }
   }
 

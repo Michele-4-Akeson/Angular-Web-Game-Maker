@@ -1,18 +1,30 @@
-<form (ngSubmit)="createGame()">
-    <label>Name of your Game</label>
-    <input type="text" name="gameName" placeholder="gameName" [(ngModel)]="gameName"/>
-    <button type="submit">Create Game</button>
-</form>
-<div *ngFor="let game of profile.games">
-    <div class="asset">
-        <div (click)="openEditor(game.name, game.id)">
-            <label>Name:{{game.name}}</label>
-            <label>Date:{{game.date}}</label>  
-        </div>
-    
-        <fa-icon *ngIf="game.shared" class="Shared" [icon]="shareIcon" title="stop sharing {{game.name}}" (click)="toggleShare(game.name, game.id)"></fa-icon>
-        <fa-icon *ngIf="!game.shared" class="NotShared" [icon]="shareIcon" title="share {{game.name}} with out" (click)="toggleShare(game.name, game.id)"></fa-icon>
-        <fa-icon class="trash" [icon]="trashIcon" title="delete {{game.name}}" (click)="delete(game.name, game.id)"></fa-icon>
+
+
+<div class="game-container">
+   
+    <div (click)="creatingGame=true" class="new-game">
+        <h3 *ngIf="!creatingGame">Create a New Game +</h3>
+        <form *ngIf="creatingGame" (ngSubmit)="createGame()">
+            <input placeholder="New Game" value="gameName" name="gameName" [(ngModel)]="gameName"/>
+            <button type="submit"><fa-icon [icon]="createIcon">CREATE </fa-icon></button>    
+        </form>
     </div>
+
+    <div class="game-item" *ngFor="let game of profile.games">
+            <div (click)="openEditor(game.name, game.id)" class="game-item-text pixelFont">
+                <h4>{{game.name}}</h4>
+                <label>Created:{{game.date}}</label>  
+            </div>
+                
+            <div class="IconContainer">
+                <fa-icon class="shareIcon fa-2x" [ngStyle]="{'color': game.shared ? 'var(--selectGreen)' : '#ffffff'}" [icon]="shareIcon" title="share {{game.name}} with other users" (click)="toggleShare(game.name, game.id)"></fa-icon>
+                <fa-icon class="trashIcon fa-2x" [icon]="trashIcon" title="delete {{game.name}}" (click)="delete(game.name, game.id)"></fa-icon>
+            </div>
+           
+    </div>
+
+
+
+
 
 </div>

@@ -23,6 +23,7 @@ import { EditorPageComponent } from './pages/editor-page/editor-page.component';
 import { GamePageComponent } from './pages/game-page/game-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RobotSVGComponent } from './components/robot-svg/robot-svg.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { RobotSVGComponent } from './components/robot-svg/robot-svg.component';
     EditorPageComponent,
     GamePageComponent,
     RobotSVGComponent,
+    HomePageComponent
     
   ],
   imports: [

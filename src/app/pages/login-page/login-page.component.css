@@ -9,11 +9,11 @@
 
 .login-header{
     transition: color 0.2s;
-    color: var(--textColor);
+    color: var(--highlightText);
 }
 
 .login-container h3{
-  color: var(--textColor);
+  color: var(--highlightText);
 }
 
 
@@ -33,7 +33,7 @@
 }
 
 .login-container label{
-  color: var(--textColor);
+  color: var(--highlightText);
   margin-bottom: 5px;
   font-weight: 300;
   margin-bottom: 5px;
@@ -68,7 +68,7 @@
 .login-container button {
     border: none;
     color: white;
-    background-color: var(--buttonColor);
+    background-color:#a8a9ad;
     display: flex;
     align-items: center;
     border-radius: 5px;

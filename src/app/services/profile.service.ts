@@ -203,7 +203,7 @@ export class ProfileService {
 
   
   async deleteGame(name:string, id:string): Promise<boolean>{
-    this.games = this.games.filter((game)=>{return game.name != name && game.id != id})
+    this.games = this.games.filter((game)=>{return game.name != name || game.id != id})
 
      try{
        const response = await fetch(backendURL + gamePath, {
