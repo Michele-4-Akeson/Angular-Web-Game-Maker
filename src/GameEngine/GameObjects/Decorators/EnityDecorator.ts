@@ -4,7 +4,7 @@ import BoxTrigger from "../../GameComponents/BoxTrigger";
 import Transform from "../../GameComponents/Transform";
 import GameEntity from "../../Interfaces/GameEntity";
 import GameObject from "../GameObject";
-import Gravity from "./Gravity";
+import Gravity from "./Physics/Gravity";
 
 /**
  * The EntityDecorator class applies the decorator pattern. This class implements the GameEntity interface
@@ -18,6 +18,7 @@ class EntityDecorator implements GameEntity{
     constructor(entity:GameEntity){
         this.gameEntity = entity
     }
+   
    
  
 
@@ -33,6 +34,10 @@ class EntityDecorator implements GameEntity{
 
     setBoxCollider(boxCollider:BoxCollider | null) {
         this.gameEntity.setBoxCollider(boxCollider)
+    }
+
+    setDynmaic(state: boolean): void {
+        this.gameEntity.setDynmaic(state)
     }
   
     getAnimation(): Animation | null {

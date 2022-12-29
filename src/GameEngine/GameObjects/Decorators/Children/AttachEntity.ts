@@ -1,5 +1,5 @@
 import GameEntity from "src/GameEngine/Interfaces/GameEntity";
-import EntityDecorator from "./EnityDecorator";
+import EntityDecorator from "../EnityDecorator";
 
 class AttachEntity extends EntityDecorator{
     child:GameEntity
@@ -9,8 +9,8 @@ class AttachEntity extends EntityDecorator{
         this.child = child
         this.bound = bound
         this.addChild(child)
-
         this.applyOffset(xOffset, yOffset)
+        child.setDynmaic(true)
     }
 
 
@@ -23,6 +23,10 @@ class AttachEntity extends EntityDecorator{
 
         
         this.child.update()
+        let positionX = this.child.getTransform().getPositionX()
+        let positionY = this.child.getTransform().getPositionY()
+        this.child.getBoxCollider()?.update(positionX, positionY)
+        
         super.update()
     }
 
@@ -30,9 +34,8 @@ class AttachEntity extends EntityDecorator{
     followParent(){
         let parentPositionX = this.gameEntity.getTransform().getPositionX()
         let parentPositionY = this.gameEntity.getTransform().getPositionY()
-        this.child.getTransform().setRef(parentPositionX, parentPositionY)
+        this.child.updatePosition(parentPositionX, parentPositionY)
     }
-
 
 
     applyOffset(x:number, y:number){

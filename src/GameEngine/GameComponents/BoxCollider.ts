@@ -1,4 +1,5 @@
-﻿import GameEntity from "../Interfaces/GameEntity"
+﻿import { BoxColliderData } from "../Interfaces/BoxColliderData"
+import GameEntity from "../Interfaces/GameEntity"
 
 
 interface SideData{
@@ -21,7 +22,7 @@ interface CollisionData {
  * @property {number} x the x position of the gameObject's boxCollider relative to its load position
  * @property {number} y the y position of the gameObject's boxCollider relative to its load position
  * @property {number} size the width and height of the boxCollider
- * @property {boolean} dynamic if the gameObject of the boxCollider moves or is static
+ * @property {boolean} dynamic if the gameObject of the boxCollider moves or is static -- false by default
  * @property {boolean} active indicates if boxCollider is active
  * @property {object} sides an js object storing coordinate data for each side of the boxCollider
  * @property {object} collisionData an js object storing the data describing the collisons of the boxCollider
@@ -41,7 +42,7 @@ class BoxCollider{
     collisionData : CollisionData
     activeSides: { top: boolean, bottom: boolean, left: boolean, right: boolean }
 
-    constructor(size:number, dynmaic:boolean) {
+    constructor(size:number) {
         // defines the coordinates of an objects boxcollider
         // note: should test if this.x is a constant value, or a reference to a value that changes - thus updates on it's own?? -- does not appear to be the case
 
@@ -51,7 +52,7 @@ class BoxCollider{
         this.x = 0;
         this.y = 0;
         this.size = size;
-        this.dynmaic = dynmaic;
+        this.dynmaic = false;
         this.onScreen = false;
         this.active = true;
         this.sides = { top: this.y, bottom: this.y + size, left: this.x, right: this.x + size}
@@ -87,6 +88,7 @@ class BoxCollider{
         this.size = size;
         this.sides = { top: this.y, bottom: this.y + size, left: this.x, right: this.x + size}
     }
+
 
     setActive(state:boolean){
         this.setNoCollision();
@@ -186,11 +188,11 @@ class BoxCollider{
     }
 
 
-    setActiveSides(left:boolean, right:boolean, top:boolean, bottom:boolean){
-        this.activeSides.left = left
-        this.activeSides.right = right
-        this.activeSides.top = top
-        this.activeSides.bottom = bottom
+    setActiveSides(data:BoxColliderData){
+        this.activeSides.left = data.left
+        this.activeSides.right = data.right
+        this.activeSides.top = data.top
+        this.activeSides.bottom = data.bottom
     }
 
     /**

@@ -37,17 +37,18 @@ class GameObject implements GameEntity{
     protected boxTrigger : BoxTrigger | null
     protected children : GameEntity[]
 
-    constructor(size:number, dynamic:boolean, tag:string){
+    constructor(size:number, tag:string){
         this.transform = new Transform(0, 0, size)
         this.onScreen = true;
         this.active = true;
         this.tag = tag;
         this.animation = null
-        this.boxCollider = new BoxCollider(size, dynamic);
+        this.boxCollider = new BoxCollider(size);
         this.boxTrigger = null
         this.children = [];
 
     }
+   
  
  
 
@@ -70,6 +71,13 @@ class GameObject implements GameEntity{
     setBoxCollider(boxCollider: BoxCollider | null): void {
         this.boxCollider = boxCollider
     }
+
+    setDynmaic(state: boolean): void {
+        if (this.boxCollider){
+            this.boxCollider!.dynmaic = state
+        }
+    }
+
  
 
    

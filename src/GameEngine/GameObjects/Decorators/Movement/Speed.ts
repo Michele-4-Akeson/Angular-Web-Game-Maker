@@ -1,5 +1,5 @@
 import GameEntity from "src/GameEngine/Interfaces/GameEntity";
-import EntityDecorator from "./EnityDecorator";
+import EntityDecorator from "../EnityDecorator";
 
 class Speed extends EntityDecorator{
     direction:string
@@ -8,6 +8,7 @@ class Speed extends EntityDecorator{
         super(gameEntity)
         this.direction = direction
         this.speed = speed
+        this.setDynmaic(true)
 
     }
 

@@ -59,7 +59,7 @@ class TriggerSystem extends CollisionSystem {
     didTrigger(objectA:GameEntity, objectB:GameEntity){
         if (objectB.enabled()){
             this.checkCount += 1;
-            if (objectA != objectB && this.isIntersecting(objectA.getBoxTrigger()!, objectB.getBoxCollider()!)){
+            if (objectA != objectB && this.isOverlapping(objectA.getBoxTrigger()!, objectB.getBoxCollider()!)){
                 this.emmitTriggerEvent(objectA, objectB);
             }
         }

@@ -44,7 +44,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
     EditorPageComponent,
     GamePageComponent,
     RobotSVGComponent,
-    HomePageComponent
+    HomePageComponent,
     
   ],
   imports: [

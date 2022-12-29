@@ -1,5 +1,5 @@
 import GameEntity from "src/GameEngine/Interfaces/GameEntity";
-import EntityDecorator from "./EnityDecorator"
+import EntityDecorator from "../EnityDecorator"
 
 class Follow extends EntityDecorator{
     followTag:string
@@ -8,6 +8,7 @@ class Follow extends EntityDecorator{
         super(gameEntity)
         this.followTag = tag
         this.speed = speed
+        this.setDynmaic(true)
     
     }
 

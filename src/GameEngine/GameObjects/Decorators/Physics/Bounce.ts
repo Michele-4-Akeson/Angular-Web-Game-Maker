@@ -1,5 +1,5 @@
 import GameEntity from "src/GameEngine/Interfaces/GameEntity";
-import EntityDecorator from "./EnityDecorator";
+import EntityDecorator from "../EnityDecorator";
 
 interface BounceDirection{
     time:number,
@@ -17,7 +17,8 @@ class Bounce extends EntityDecorator{
         this.bounceTime = bounceTime
         this.horizontalBounce = {time:0, direction:"none"}
         this.verticalBounce = {time:0, direction:"none"}
-
+        this.setDynmaic(true)
+        
 
     }
 

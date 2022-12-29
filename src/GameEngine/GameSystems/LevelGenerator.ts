@@ -1,18 +1,18 @@
 import Animation from "../GameComponents/Animation"
 import BoxTrigger from "../GameComponents/BoxTrigger"
 import Spritesheet from "../GameComponents/Spritesheet"
-import AttachEntity from "../GameObjects/Decorators/AttachEntity"
-import Bounce from "../GameObjects/Decorators/Bounce"
-import DestroyedBy from "../GameObjects/Decorators/DestroyedBy"
-import Follow from "../GameObjects/Decorators/Follow"
-import Gravity from "../GameObjects/Decorators/Gravity"
-import Health from "../GameObjects/Decorators/Health"
-import MovementController from "../GameObjects/Decorators/MovementController"
-import PlatformerController from "../GameObjects/Decorators/PlatformerController"
-import ShowChild from "../GameObjects/Decorators/ShowChild"
-import Speed from "../GameObjects/Decorators/Speed"
-import Travel from "../GameObjects/Decorators/Travel"
-import TriggerAnimation from "../GameObjects/Decorators/TriggerAnimation"
+import AttachEntity from "../GameObjects/Decorators/Children/AttachEntity"
+import Bounce from "../GameObjects/Decorators/Physics/Bounce"
+import DestroyedBy from "../GameObjects/Decorators/Other/DestroyedBy"
+import Follow from "../GameObjects/Decorators/Movement/Follow"
+import Gravity from "../GameObjects/Decorators/Physics/Gravity"
+import Health from "../GameObjects/Decorators/Other/Health"
+import MovementController from "../GameObjects/Decorators/Movement/MovementController"
+import PlatformerController from "../GameObjects/Decorators/Movement/PlatformerController"
+import ShowChild from "../GameObjects/Decorators/Children/ShowChild"
+import Speed from "../GameObjects/Decorators/Movement/Speed"
+import Travel from "../GameObjects/Decorators/Movement/Travel"
+import TriggerAnimation from "../GameObjects/Decorators/Other/TriggerAnimation"
 import GameObject from "../GameObjects/GameObject"
 import { AnimationData } from "../Interfaces/AnimationData"
 import { Entity } from "../Interfaces/Entity"
@@ -33,6 +33,7 @@ class LevelGenerator{
     gameManager : GameManager
     loadedLevel : Map
     entityName: string = ""
+    childList:GameEntity[] = []
     constructor(gameManager:GameManager){
         this.player = null
         this.gameManager = gameManager
@@ -52,7 +53,7 @@ class LevelGenerator{
         this.loadedLevel.background = (this.createLayer(map.background))
         this.loadedLevel.mainground = (this.createLayer(map.mainground))
         this.loadedLevel.foreground = (this.createLayer(map.foreground))
-        console.log(this.loadedLevel)
+        //console.log(this.loadedLevel)
 
     }
 
@@ -80,6 +81,12 @@ class LevelGenerator{
 
         }
 
+        for (let child of this.childList){
+            console.log(child)
+        }
+
+        console.log("CHILD COMPARISON:", this.childList[0] == this.childList[1])
+
 
         return layer
 
@@ -98,17 +105,21 @@ class LevelGenerator{
         } else {
 
             this.entityName = entity.name
-            let gameEntity : GameEntity = new GameObject(this.loadedLevel.scale * entity.sizeMultiplyer, entity.dynamic, entity.tag)
+            let gameEntity : GameEntity = new GameObject(this.loadedLevel.scale * entity.sizeMultiplyer, entity.tag)
 
             gameEntity.setAnimation(this.createAnimation(entity.animation))
             
             if (entity.boxTrigger.active){
-                gameEntity.setBoxTrigger(new BoxTrigger(this.loadedLevel.scale * entity.sizeMultiplyer, this.loadedLevel.scale * entity.sizeMultiplyer * entity.boxTrigger.size, true,))
+                gameEntity.setBoxTrigger(new BoxTrigger(this.loadedLevel.scale * entity.sizeMultiplyer, this.loadedLevel.scale * entity.sizeMultiplyer * entity.boxTrigger.size))
             }
 
-            if (!entity.boxCollider){
+            if (!entity.boxCollider.active){
                 gameEntity.setBoxCollider(null)
+            } else {
+                gameEntity.getBoxCollider()?.setActiveSides(entity.boxCollider)
             }
+
+
 
             let child:GameEntity|null = null
             for (let decorator of entity.decorators){
@@ -116,13 +127,16 @@ class LevelGenerator{
                     case "Gravity":
                         gameEntity = new Gravity(gameEntity, <number>decorator.inputs[0].value, <number>decorator.inputs[1].value)
                         break;
+
                     case "Speed":
                         gameEntity = new Speed(gameEntity, <string>decorator.inputs[0].value, <number>decorator.inputs[1].value)
                         break;
+
                     case "Attach":
                         child = this.createGameEntity(<Entity>decorator.inputs[0].value)
                         if (child){
                             gameEntity = new AttachEntity(gameEntity, child, <boolean>decorator.inputs[1].value, <number>decorator.inputs[2].value, <number>decorator.inputs[3].value)
+                            this.childList.push(child)
                         } else {
                             throw new Error(`Error: Missing input in 'Attach' ability of '${this.entityName}'`)
                         }

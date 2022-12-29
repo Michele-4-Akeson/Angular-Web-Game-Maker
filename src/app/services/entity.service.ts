@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import BoxCollider from 'src/GameEngine/GameComponents/BoxCollider';
+import { BoxColliderData } from 'src/GameEngine/Interfaces/BoxColliderData';
 import { Decorator } from 'src/GameEngine/Interfaces/Decorator';
 import { Entity } from 'src/GameEngine/Interfaces/Entity';
 import { SpritesheetData } from 'src/GameEngine/Interfaces/SpritesheetData';
@@ -6,6 +8,8 @@ import { AnimationData } from '../../GameEngine/Interfaces/AnimationData';
 
 import { Subject } from '../interfaces/Subject';
 import { Subscriber } from '../interfaces/Subscriber';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +21,7 @@ export class EntityService implements Subject{
   private tag:string = ""
   private dynamic: boolean = false
   private sizeMultiplyer:number = 1
-  private boxCollider:boolean = false
+  private boxCollider:BoxColliderData = {active:false, right:true, left:true, bottom:true, top:true}
   private boxTrigger = {active:false, size:1}
   // animationData -- spritesheet needs to get swicthed to {id:str, url:str, squareSize:number}
   private animation: AnimationData = { spritesheet: null, xFrame:0, yFrame:0, frameSize:0, speed:0, active:false, left: 0, right:0, up:0, down:0}
@@ -25,7 +29,7 @@ export class EntityService implements Subject{
   private subscribers:Subscriber[] = []
   public savedEntities:Entity[] = []
 
-  private tags = [{id:" "}, {id:"Player"}, {id:"NPC"}, {id:"Enemy"}, {id:"Loot"}, {id:"Object"}, {id:"Item"}, {id:"Projectile"}, {id:"Platform"}, {id:"Tree"}]
+  private tags = [{id:" "}, {id:"Player"}, {id:"NPC"}, {id:"Enemy"}, {id:"Loot"}, {id:"Object"}, {id:"Item"}, {id:"Projectile"}, {id:"Platform"}, {id:"Floor"}]
   private decoratorNames = ["Gravity", "Attach", "Speed", "Bounce", "MovementController", "PlatformController", "Follow", "Travel", "DestroyedBy", "Health-Bar", "Activate Child on Collision", "Trigger Animation on Input"]
   constructor() {}
 
@@ -119,10 +123,10 @@ export class EntityService implements Subject{
     return this.boxCollider
   }
 
-  setBoxCollider(active:boolean){
-    this.boxCollider = active
-    
+  setBoxCollider(key:keyof BoxColliderData, state:boolean){
+    this.boxCollider[key] = state
   }
+
 
   getBoxTrigger(){
     return this.boxTrigger
@@ -253,7 +257,7 @@ export class EntityService implements Subject{
     this.tag = ""
     this.dynamic = false
     this.sizeMultiplyer = 1
-    this.boxCollider = false
+    this.boxCollider = {active:false, right:true, left:true, bottom:true, top:true}
     this.boxTrigger = {active:false, size:1}
     this.animation = { spritesheet: null, xFrame:0, yFrame:0, frameSize:0, speed:0, active:false, left: 0, right:0, up:0, down:0}
     this.decorators = []

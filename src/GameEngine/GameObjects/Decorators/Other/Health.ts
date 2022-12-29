@@ -1,5 +1,5 @@
 import GameEntity from "src/GameEngine/Interfaces/GameEntity";
-import EntityDecorator from "./EnityDecorator";
+import EntityDecorator from "../EnityDecorator";
 
 class Health extends EntityDecorator{
     health:number

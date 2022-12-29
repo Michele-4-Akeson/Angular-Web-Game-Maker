@@ -2,6 +2,9 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { Subscriber } from 'src/app/interfaces/Subscriber';
 import { EntityService } from 'src/app/services/entity.service';
 import { faArrowUpFromBracket, faAdd } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faArrowDown, faArrowUp} from '@fortawesome/free-solid-svg-icons';
+import { BoxColliderData } from 'src/GameEngine/Interfaces/BoxColliderData';
+
 
 @Component({
   selector: 'app-inspector',
@@ -15,6 +18,10 @@ export class InspectorComponent implements OnInit, Subscriber, AfterViewInit {
   animVisible : boolean = false
   saveIcon = faArrowUpFromBracket
   addIcon = faAdd
+  upArrow = faArrowUp
+  downArrow = faArrowDown
+  rightArrow = faArrowRight
+  leftArrow = faArrowLeft
   constructor(public entity:EntityService) {
     this.subscribe()
 
@@ -48,9 +55,8 @@ export class InspectorComponent implements OnInit, Subscriber, AfterViewInit {
     this.entity.setDynamic(active)
   }
 
-  toggleBoxCollider(active:boolean){
-    console.log(active)
-    this.entity.setBoxCollider(active)
+  toggleBoxCollider(key:keyof BoxColliderData, state:boolean){
+    this.entity.setBoxCollider(key, state)
   }
 
   toggleBoxTrigger(active:boolean){

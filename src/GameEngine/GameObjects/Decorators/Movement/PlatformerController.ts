@@ -1,8 +1,8 @@
 import Input from "src/GameEngine/GameComponents/Input";
 import GameEntity from "src/GameEngine/Interfaces/GameEntity";
 import { Subject } from "src/GameEngine/Interfaces/Subject";
-import EntityDecorator from "./EnityDecorator";
-import InputUser from "./InputUser";
+import EntityDecorator from "../EnityDecorator";
+import InputUser from "../InputUser";
 
 class PlatformerController extends InputUser{
     jumpForce:number = 0
@@ -15,6 +15,7 @@ class PlatformerController extends InputUser{
         this.jumpForce = jumpForce
         this.jumpTime = jumpTime
         this.speed = speed
+        this.setDynmaic(true)
     }
 
     override update(): void {

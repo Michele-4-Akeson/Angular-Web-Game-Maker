@@ -2,7 +2,7 @@ import { faL } from "@fortawesome/free-solid-svg-icons";
 import Input from "src/GameEngine/GameComponents/Input";
 import GameEntity from "src/GameEngine/Interfaces/GameEntity";
 import { Subject } from "src/GameEngine/Interfaces/Subject";
-import InputUser from "./InputUser";
+import InputUser from "../InputUser";
 
 class TriggerAnimation extends InputUser{
     //need to apply keypress listener to ensure only one activation

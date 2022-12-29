@@ -13,8 +13,8 @@ import BoxCollider from "./BoxCollider";
  class BoxTrigger extends BoxCollider{
     centerX : number
     centerY : number
-    constructor(boxSize:number, size:number, dynmaic:boolean){
-        super(size, dynmaic);
+    constructor(boxSize:number, size:number){
+        super(size);
         this.centerX = boxSize / 2;
         this.centerY = boxSize / 2;
 

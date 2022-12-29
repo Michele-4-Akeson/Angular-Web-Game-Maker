@@ -51,7 +51,7 @@ class Camera {
     y : number
     width : number
     height : number
-    following : boolean
+    isFollowing : boolean
     target : GameEntity | null
     scale : number
     previousX : number
@@ -69,7 +69,7 @@ class Camera {
         this.y = 0;
         this.width = width;
         this.height = height;
-        this.following = false;
+        this.isFollowing = false;
         this.target = null
         this.scale = 0
         this.previousX = 0;
@@ -104,9 +104,6 @@ class Camera {
         this.x = x;
         this.y = y;
         this.setCameraView();
-        
-       
-
         
     }
 
@@ -149,7 +146,7 @@ class Camera {
                 if (object == target) {
                 
                     this.target = target;
-                    this.following = true;
+                    this.isFollowing = true;
                     
                     this.setCamera(x * map.scale - this.centerX, y * map.scale - this.centerY);
                     target?.getTransform().setRef(x * map.scale - this.view.left,  y * map.scale - this.view.top)
@@ -166,7 +163,7 @@ class Camera {
      * from its previous position, keeping the camera centered around the target
      */
     follow() {
-        if (this.following){
+        if (this.isFollowing){
             const transform = this.target?.getTransform()
             const x = transform!.getX()
             const y = transform!.getY()
@@ -203,6 +200,16 @@ class Camera {
 
        
 
+    }
+
+
+
+    reset(){
+        this.target = null
+        this.isFollowing = false
+        this.previousX = 0;
+        this.previousY = 0;
+        this.setCamera(0, 0)
     }
 
 

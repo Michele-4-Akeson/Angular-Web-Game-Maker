@@ -1,5 +1,5 @@
 import GameEntity from "src/GameEngine/Interfaces/GameEntity";
-import EntityDecorator from "./EnityDecorator";
+import EntityDecorator from "../EnityDecorator";
 
 class Travel extends EntityDecorator{
     path:string
@@ -12,6 +12,7 @@ class Travel extends EntityDecorator{
         this.path = path
         this.range = range
         this.speed = speed
+        this.setDynmaic(true)
     }
 
 

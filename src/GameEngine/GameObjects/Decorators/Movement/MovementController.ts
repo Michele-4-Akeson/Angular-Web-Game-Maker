@@ -1,14 +1,14 @@
 import Input from "src/GameEngine/GameComponents/Input";
 import GameEntity from "src/GameEngine/Interfaces/GameEntity";
 import { Subject } from "src/GameEngine/Interfaces/Subject";
-import EntityDecorator from "./EnityDecorator";
-import InputUser from "./InputUser";
+import InputUser from "../InputUser";
 
 class MovementController extends InputUser{
     speed:number = 0
     constructor(gameEntity:GameEntity, speed:number, subject:Subject){
         super(gameEntity, subject)
         this.speed = speed
+        this.setDynmaic(true)
     }
 
 

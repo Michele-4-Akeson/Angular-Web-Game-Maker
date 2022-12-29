@@ -1,6 +1,6 @@
 import { max } from "rxjs";
-import GameEntity from "../../Interfaces/GameEntity";
-import EntityDecorator from "./EnityDecorator";
+import GameEntity from "../../../Interfaces/GameEntity";
+import EntityDecorator from "../EnityDecorator";
 
 /**
  * This class will move a gameEnity downwards every frame if the gameEntity isn't colliding with
@@ -15,6 +15,7 @@ class Gravity extends EntityDecorator{
         this.speed = 0
         this.maxSpeed = maxSpeed
         this.acceleration = acceleration
+        this.setDynmaic(true)
     }
 
 
