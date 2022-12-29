@@ -1,5 +1,4 @@
 ﻿import GameEntity from "../Interfaces/GameEntity"
-import GameObject from "../GameObjects/GameObject"
 
 
 interface SideData{
@@ -40,6 +39,7 @@ class BoxCollider{
     active : boolean
     sides : SideData
     collisionData : CollisionData
+    activeSides: { top: boolean, bottom: boolean, left: boolean, right: boolean }
 
     constructor(size:number, dynmaic:boolean) {
         // defines the coordinates of an objects boxcollider
@@ -55,6 +55,7 @@ class BoxCollider{
         this.onScreen = false;
         this.active = true;
         this.sides = { top: this.y, bottom: this.y + size, left: this.x, right: this.x + size}
+        this.activeSides = {top: true, bottom: true, left: true, right: true}
         this.collisionData = { gameObject: null, collisionTag: "none", left: false, right: false, top: false, bottom: false };
         
 
@@ -161,9 +162,13 @@ class BoxCollider{
         }
     }
 
-
-    sideHasCollision(direction:string):boolean{
-        switch(direction){
+    /**
+     * checks if there is a collision on a given side (left, right, up, down)
+     * @param side the direction/side to be checked for an exsisting collision
+     * @returns true if a boxCollider has a collision in the respective direction being checked
+     */
+    sideHasCollision(side:string):boolean{
+        switch(side){
             case "left":
                 return this.collisionData.left
             case "right":
@@ -173,11 +178,42 @@ class BoxCollider{
             case "down":
                 return this.collisionData.bottom
             default:
-                console.log("typo in collision - " + direction)
+                console.log("typo in collision - " + side)
                 return false
         }
 
 
+    }
+
+
+    setActiveSides(left:boolean, right:boolean, top:boolean, bottom:boolean){
+        this.activeSides.left = left
+        this.activeSides.right = right
+        this.activeSides.top = top
+        this.activeSides.bottom = bottom
+    }
+
+    /**
+     * checks if a given side of a boxCollider is active; if it is,
+     * then it can be collided with
+     * @param side the side of the boxCollider
+     * @returns true if the side given can be collided with
+     */
+    canSideCollide(side:string):boolean{
+        switch(side){
+            case "left":
+                return this.activeSides.left
+            case "right":
+                return this.activeSides.right
+            case "top":
+                return this.activeSides.top
+            case "bottom":
+                return this.activeSides.bottom
+            default:
+                console.log("typo in collision - " + side)
+                return false
+        }
+        
     }
     
 
