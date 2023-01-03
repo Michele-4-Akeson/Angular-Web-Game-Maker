@@ -20,6 +20,10 @@ import GameEntity from "../Interfaces/GameEntity"
 import { LevelData } from "../Interfaces/LevelData"
 import { Map } from "../Interfaces/Map"
 import GameManager from "./GameManager"
+import MultiAnimation from "../GameObjects/Decorators/Other/MultiAnimation"
+import Spawner from "../GameObjects/Decorators/Children/Spawner"
+import Projectile from "../GameObjects/Decorators/Children/Projectile"
+import DestroyAnimation from "../GameObjects/Decorators/Other/DestroyAnimation"
 
 /**
  * Functions to generate GameObjects using a js Object containing data needed to generate a level for the game
@@ -34,9 +38,11 @@ class LevelGenerator{
     loadedLevel : Map
     entityName: string = ""
     childList:GameEntity[] = []
+    
     constructor(gameManager:GameManager){
         this.player = null
         this.gameManager = gameManager
+        
         this.loadedLevel = {background:[], mainground: [], foreground:[], scale:0, columns:0, rows:0}
 
     }
@@ -66,9 +72,7 @@ class LevelGenerator{
                 gameEntity = this.createGameEntity(entity)
                 if (gameEntity){
                     layer.push(gameEntity)
-                    
-                    if (gameEntity.getTag() == "Player") {
-                        console.log("PLAYER")
+                    if (gameEntity.getTag()=="Camera Target"){
                         this.player = gameEntity
                     }
                 } else {
@@ -81,11 +85,10 @@ class LevelGenerator{
 
         }
 
-        for (let child of this.childList){
-            console.log(child)
-        }
+        console.log(layer)
 
-        console.log("CHILD COMPARISON:", this.childList[0] == this.childList[1])
+       
+
 
 
         return layer
@@ -124,6 +127,10 @@ class LevelGenerator{
             let child:GameEntity|null = null
             for (let decorator of entity.decorators){
                 switch(decorator.name){
+
+                     /**
+                     * PHYSICS DECORATORS
+                     */
                     case "Gravity":
                         gameEntity = new Gravity(gameEntity, <number>decorator.inputs[0].value, <number>decorator.inputs[1].value)
                         break;
@@ -132,6 +139,61 @@ class LevelGenerator{
                         gameEntity = new Speed(gameEntity, <string>decorator.inputs[0].value, <number>decorator.inputs[1].value)
                         break;
 
+
+                    case "Bounce":
+                        gameEntity = new Bounce(gameEntity, <number>decorator.inputs[0].value, <number>decorator.inputs[1].value)
+                        break
+
+
+
+                     /**
+                     * MOVEMENT DECORATORS
+                     */
+                    case "Top Down Movement":
+                        gameEntity = new MovementController(gameEntity, <number>decorator.inputs[0].value, this.gameManager)
+                        break
+
+                    case "2D Platform Movement":
+                        gameEntity = new PlatformerController(gameEntity, <number>decorator.inputs[0].value, <number>decorator.inputs[1].value, <number>decorator.inputs[2].value, this.gameManager)
+                        break
+                    
+                    case "Follow":
+                        gameEntity = new Follow(gameEntity,  <string>decorator.inputs[0].value, <number>decorator.inputs[1].value)
+                        break
+
+                    case "Travel":
+                        gameEntity = new Travel(gameEntity,  <string>decorator.inputs[0].value, <number>decorator.inputs[1].value, <number>decorator.inputs[2].value)
+                        break
+
+
+                     /**
+                     * OTHER DECORATORS
+                     */
+
+                    case "DestroyedBy":
+                        gameEntity = new DestroyedBy(gameEntity,  <string>decorator.inputs[0].value)
+                        break
+
+                    case "Health-Bar":
+                        gameEntity = new Health(gameEntity, <number>decorator.inputs[0].value, <number>decorator.inputs[1].value, <string>decorator.inputs[2].value, <number>decorator.inputs[3].value)
+                        break
+
+                    case "Trigger Animation on Input":
+                        gameEntity = new TriggerAnimation(gameEntity, <number>decorator.inputs[0].value, <string>decorator.inputs[1].value, this.gameManager)
+                        break
+
+                    case "Multi-Animation":
+                        gameEntity = new MultiAnimation(gameEntity, <number>decorator.inputs[0].value, <number>decorator.inputs[1].value, <number>decorator.inputs[2].value, <number>decorator.inputs[3].value, <string>decorator.inputs[4].value, this.gameManager)
+                        break
+
+                    case "Animation on Destroy":
+                        gameEntity = new DestroyAnimation(gameEntity, <number>decorator.inputs[0].value)
+                        console.log(gameEntity)
+                        break
+
+                    /**
+                     * CHILDREN DECORATORS
+                     */
                     case "Attach":
                         child = this.createGameEntity(<Entity>decorator.inputs[0].value)
                         if (child){
@@ -150,42 +212,22 @@ class LevelGenerator{
                             throw new Error(`Error: Missing input in 'Attach' ability of '${this.entityName}'`)
                         }
                         break
-                    
-                    case "Bounce":
-                        gameEntity = new Bounce(gameEntity, <number>decorator.inputs[0].value, <number>decorator.inputs[1].value)
+
+                    case "Spawner":
+                        gameEntity = new Spawner(
+                            gameEntity, 
+                            this.createObjectPool(<Entity>decorator.inputs[0].value, <number>decorator.inputs[1].value), 
+                            <number>decorator.inputs[2].value, <number>decorator.inputs[3].value, <boolean>decorator.inputs[4].value,
+                            <boolean>decorator.inputs[5].value, <number>decorator.inputs[6].value, <number>decorator.inputs[7].value) 
                         break
 
-                    case "MovementController":
-                        gameEntity = new MovementController(gameEntity, <number>decorator.inputs[0].value, this.gameManager)
+                    case "Shoot Projectile on Input":
+                        gameEntity = new Projectile(gameEntity, this.createObjectPool(<Entity>decorator.inputs[0].value, <number>decorator.inputs[1].value), <number>decorator.inputs[2].value, 
+                        <number>decorator.inputs[3].value, <number>decorator.inputs[4].value, <string>decorator.inputs[5].value, this.gameManager)
                         break
-
-                    case "PlatformController":
-                        gameEntity = new PlatformerController(gameEntity, <number>decorator.inputs[0].value, <number>decorator.inputs[1].value, <number>decorator.inputs[2].value, this.gameManager)
-                        break
-                    
-                    case "Follow":
-                        gameEntity = new Follow(gameEntity,  <string>decorator.inputs[0].value, <number>decorator.inputs[1].value)
-                        break
-
-
-                    case "Travel":
-                        gameEntity = new Travel(gameEntity,  <string>decorator.inputs[0].value, <number>decorator.inputs[1].value, <number>decorator.inputs[2].value)
-                        break
-
-                    case "DestroyedBy":
-                        gameEntity = new DestroyedBy(gameEntity,  <string>decorator.inputs[0].value)
-                        break
-
-                    case "Health-Bar":
-                        gameEntity = new Health(gameEntity, <number>decorator.inputs[0].value, <number>decorator.inputs[1].value, <string>decorator.inputs[2].value)
-                        break
-
-                    case "Trigger Animation on Input":
-                        gameEntity = new TriggerAnimation(gameEntity, <number>decorator.inputs[0].value, <string>decorator.inputs[1].value, this.gameManager)
-                        break
-                    
 
                     default:
+                        console.log("Invalid Decorator")
 
                 }
             }
@@ -204,6 +246,26 @@ class LevelGenerator{
         if (animation.active) newAnimation.setDirectionalFrames(animation.left, animation.right, animation.up, animation.down)
 
         return newAnimation
+    }
+
+
+    /**
+     * 
+     * @param entity the entity to be cloned and added to objectPool
+     * @param count the number of entities to be created
+     * @returns a list of gameEntities
+     */
+    createObjectPool(entity:Entity, count:number){
+        let spawnList = []
+        let child
+        //generates 10 child clones for spawning
+        for (let i = 0; i < count; i++){
+            child = this.createGameEntity(entity)
+            if (child) spawnList.push(child)
+        }
+
+        return spawnList
+
     }
 
     

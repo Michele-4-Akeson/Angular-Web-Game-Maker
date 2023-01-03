@@ -21,10 +21,14 @@
         <input type="submit" value="Add"/>
     </form>
     <app-incrementor label="Pixels" [value]="frameSize" (onChange)="setFrameSize($event)" [negative]="false"></app-incrementor>
+    <app-checkbox label="Sprite Selection Helper" [isChecked]="flooredBox" (onCheck)="toggleFlooredBox($event)"></app-checkbox>
+
 </div>
 
 <div #spriteContainer class="sprite-selector-container">
-    <img id="Tilemap1-16x16.png" src="../../../assets/Tilemap1.png"/>
+    <img id="Link-32x32.png" src="../../../assets/Player.png"/>
+    <img id="mario48x48.png" class="hide" src="../../../assets/mario.png"/>
+    <img id="pokemon-64x64.png" class="hide" src="../../../assets/pokemon.png"/>
     <img id="Characters1-32x32.png" class="hide" src="../../../assets/Characters2.png"/>
     <img id="Characters2-32x32.png" class="hide" src="../../../assets/Character3.png"/>
     <img id="Characters3-32x32.png" class="hide" src="../../../assets/Characters1.png"/>
@@ -32,14 +36,13 @@
     <img id="Walls+Stairs-64x64.png" class="hide" src="../../../assets/Walls.png"/>
     <img id="Random-24x24.png" class="hide" src="../../../assets/Misc.png"/>
     <img id="Boss-64x64.png" class="hide" src="../../../assets/Bosses.png"/>
-    <img id="mario48x48.png" class="hide" src="../../../assets/mario.png"/>
+    <img id="Tilemap1-16x16.png" class="hide" src="../../../assets/Tilemap1.png"/>
     <img id="marioTiles16x16.png" class="hide" src="../../../assets/mariot16x16Tiles.png"/>
-    <img id="Link-32x32.png" class="hide" src="../../../assets/Player.png"/>
     <img id="TX2-32x32.png" class="hide" src="../../../assets/TX Tileset Grass.png"/>
     <img id="TX3-32x32.png" class="hide" src="../../../assets/TX Tileset Ground.png"/>
     <img id="Solaria-16x16.png" class="hide" src="../../../assets/World of Solaria Demo 1.0.png"/>
-    <img id="Rupees-24x24.png" class="hide" src="../../../assets/Rupees.png"/>
-   
+    <img id="Rupees-32x32.png" class="hide" src="../../../assets/Rupees.png"/>
+
     <div #spriteSquare class="sprite-square"></div>
 </div>
 

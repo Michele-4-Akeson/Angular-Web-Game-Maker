@@ -357,6 +357,7 @@ export class ProfileService {
         this.selectedGame = game
         this.levelService.loadGame(game)
         this.entityService.savedEntities = game.gameData.savedEntities
+        this.entityService.assetList = game.gameData.assets
         
         this.router.navigate(["hippo-game-builder"])
         return true
@@ -371,6 +372,7 @@ export class ProfileService {
     for (let game of this.games){
       if (game.name == name && game.id == id){
         this.selectedGame = game
+        this.entityService.assetList = game.gameData.assets
         this.levelService.loadGame(game)
         this.router.navigate(["hippo-game"])
       }
@@ -392,7 +394,7 @@ export class ProfileService {
    * @returns a string reperesnting the current date and time
    */
   displayDate(){
-    return dateObj.toLocaleString("en-US")
+    return dateObj.toLocaleDateString("en-us", { weekday:"long", year:"numeric", month:"short", day:"numeric"})
   }
 
 
@@ -424,7 +426,7 @@ export class ProfileService {
       id: this.levelService.id,
       token: this.token,
       shared: this.levelService.shared,
-      gameData: {assets: [], savedEntities: this.entityService.savedEntities, levelData: this.levelService.getLevelData()}
+      gameData: {assets: this.entityService.assetList, savedEntities: this.entityService.savedEntities, levelData: this.levelService.getLevelData()}
     }
 
     return gameData

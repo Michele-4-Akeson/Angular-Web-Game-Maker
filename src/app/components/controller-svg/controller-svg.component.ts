@@ -13,7 +13,7 @@ export class ControllerSvgComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    
   }
   ngAfterViewInit(): void {
     this.timeline.add(this.pressButton("#yellowButton", "yellow", "#edd551"))

@@ -14,7 +14,6 @@ class Follow extends EntityDecorator{
 
 
     override update(): void {
-        console.log(this.getBoxTrigger()?.collisionData)
         if (this.isFollowing()){
             this.track(this.getTarget())
         } else {

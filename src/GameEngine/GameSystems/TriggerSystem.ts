@@ -31,6 +31,8 @@ class TriggerSystem extends CollisionSystem {
                 if (object.getBoxCollider()){
                     this.boxColliderObjects.push(object)
                 }
+
+                this.addGameObjects(object.getChildren())
             }
             
         }
@@ -54,8 +56,7 @@ class TriggerSystem extends CollisionSystem {
         }
     }
 
-
-
+    
     didTrigger(objectA:GameEntity, objectB:GameEntity){
         if (objectB.enabled()){
             this.checkCount += 1;

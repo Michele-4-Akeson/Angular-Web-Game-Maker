@@ -68,7 +68,7 @@
 .login-container button {
     border: none;
     color: white;
-    background-color:#a8a9ad;
+    background-color:#3a6d3c;
     display: flex;
     align-items: center;
     border-radius: 5px;
@@ -109,7 +109,8 @@ RADIO BUTTONS
   border-radius: 5px;
   text-align: center;
   cursor: pointer;
-  background-color: #a8a9ad;
+  background-color: #5d678f;
+  font-size: xx-small;
 }
 
 
@@ -123,7 +124,7 @@ RADIO BUTTONS
 }
 
 .radio-container input[type="radio"]:checked + label {
-  background-color: var(--selectGreen);
+  background-color: turquoise;
   transform: scale(1.1);
 }
 

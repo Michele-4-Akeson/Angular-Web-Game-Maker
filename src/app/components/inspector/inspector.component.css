@@ -1,6 +1,8 @@
 .inspector-form{
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    
 }
 
 
@@ -44,7 +46,6 @@
   .animationData{
     display: flex;
     flex-direction: column;
-    overflow-x: auto;
 
 
   }

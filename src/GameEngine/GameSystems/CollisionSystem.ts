@@ -94,7 +94,6 @@ interface CollisonData{
            this.clearList()
 
             if (objectA.enabled()){
-                console.log(objectA.getTag())
                 // checking collisions with all other dynmaic(moving) gameObjects
                 for (let objectB of this.dynamicGameObjects){ 
                    this.didCollide(objectA, objectB)

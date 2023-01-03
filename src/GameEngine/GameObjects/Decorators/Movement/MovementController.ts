@@ -14,7 +14,6 @@ class MovementController extends InputUser{
 
 
     override update(): void {
-
         if (this.isStopped()){
             this.goTo("stop")
             

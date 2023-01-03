@@ -117,8 +117,7 @@ class GraphicsSystem {
             case "mainground":
                 for (let object of gameObjects){
                     if (object != null) {
-                        this.mainground.addObject(object);
-                        
+                        this.mainground.addObject(object);   
                     }
                 }
 

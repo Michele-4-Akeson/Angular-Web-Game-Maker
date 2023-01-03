@@ -1,7 +1,6 @@
-
+<app-home-button></app-home-button>
 
 <div class="game-container">
-   
     <div (click)="creatingGame=true" class="new-game">
         <h3 *ngIf="!creatingGame">Create a New Game +</h3>
         <form *ngIf="creatingGame" (ngSubmit)="createGame()">

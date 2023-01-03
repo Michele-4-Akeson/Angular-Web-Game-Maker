@@ -6,6 +6,7 @@ class DestroyedBy extends EntityDecorator{
     constructor(gameEntity:GameEntity, tag:string){
         super(gameEntity)
         this.dangerTag = tag
+        this.setDynmaic(true)
         
     }
 
@@ -14,9 +15,10 @@ class DestroyedBy extends EntityDecorator{
 
 
     override collisionEvent(gameObject: GameEntity): void {
+        super.collisionEvent(gameObject)
         if (gameObject.getTag() == this.dangerTag){
             this.setActive(false)
-            super.setActive(false)
         }
+
     }
 } export default DestroyedBy

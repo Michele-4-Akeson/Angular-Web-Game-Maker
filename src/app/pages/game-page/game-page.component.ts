@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { EntityService } from 'src/app/services/entity.service';
 import { LevelService } from 'src/app/services/level.service';
 import GameManager from 'src/GameEngine/GameSystems/GameManager';
 
@@ -10,18 +11,33 @@ import GameManager from 'src/GameEngine/GameSystems/GameManager';
 
 export class GamePageComponent implements AfterViewInit {
   @ViewChild('gameview') gameView! : ElementRef
+  @ViewChild('spriteContainer') spriteContainer!:ElementRef<HTMLDivElement>
   gameManager:GameManager | undefined
   isPlaying:boolean = false
   id: any;
 
 
-  constructor(private levelService:LevelService){}
+  constructor(private levelService:LevelService, private entityService:EntityService){}
 
   ngAfterViewInit(): void {
     this.gameManager = new GameManager(this.gameView.nativeElement.children)
+    for (let asset of this.entityService.assetList){
+      console.log(asset)
+      let newImage = document.createElement("img")
+      newImage.classList.add("hide")
+      newImage.setAttribute("src", asset.url)
+      newImage.setAttribute("id", asset.id)
+      this.spriteContainer.nativeElement.append(newImage)
+
+    }
+
+
     document.addEventListener("resize", (e:any)=>{
       this.gameManager?.resize()
     })
+
+
+
     setTimeout(()=>{
       this.preview()
 
@@ -29,7 +45,7 @@ export class GamePageComponent implements AfterViewInit {
         this.play()
       }, 200)
 
-    }, 150)
+    }, 550)
     
   }
 

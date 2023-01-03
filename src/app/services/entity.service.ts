@@ -28,9 +28,11 @@ export class EntityService implements Subject{
   private decorators:Decorator[] = []
   private subscribers:Subscriber[] = []
   public savedEntities:Entity[] = []
+  public assetList:{id:string, url:string}[] = []
 
-  private tags = [{id:" "}, {id:"Player"}, {id:"NPC"}, {id:"Enemy"}, {id:"Loot"}, {id:"Object"}, {id:"Item"}, {id:"Projectile"}, {id:"Platform"}, {id:"Floor"}]
-  private decoratorNames = ["Gravity", "Attach", "Speed", "Bounce", "MovementController", "PlatformController", "Follow", "Travel", "DestroyedBy", "Health-Bar", "Activate Child on Collision", "Trigger Animation on Input"]
+
+  private tags = [{id:" "}, {id:"Camera Target"}, {id:"Player"}, {id:"NPC"}, {id:"Enemy"}, {id:"Loot"}, {id:"Object"}, {id:"Item"}, {id:"Projectile"}, {id:"Platform"}, {id:"Floor"}, {id:"Particle"}]
+  private decoratorNames = ["Gravity", "Attach", "Camera Target", "Spawner", "Speed", "Bounce", "Top Down Movement", "2D Platform Movement", "Follow", "Travel", "DestroyedBy", "Health-Bar", "Activate Child on Collision", "Trigger Animation on Input", "Animation on Destroy", "Multi-Animation", "Shoot Projectile on Input", "ca"]
   constructor() {}
 
 
@@ -156,7 +158,7 @@ export class EntityService implements Subject{
     let d : Decorator
     switch(name){
       case "Gravity":
-        d = {name:name, inputs:[this.newInput("Acceleration", "number", 0), this.newInput("Max Speed", "number", 3)]}
+        d = {name:name, inputs:[this.newInput("Acceleration", "number", 0.1), this.newInput("Max Speed", "number", 3)]}
         this.indexDecorator(d)
         break
       case "Attach":
@@ -167,6 +169,16 @@ export class EntityService implements Subject{
         d = {name:name, inputs:[this.newInput("Game Object", "entity", null), this.newInput("bound", "boolean", true), this.newInput("x", "number", 0), this.newInput("y", "number", 0)]}
         this.indexDecorator(d)
         break
+      case "Spawner":
+        d = {name:name, inputs:[this.newInput("Game Object", "entity", null), this.newInput("number of spawns", "number", 5), this.newInput("spawn time", "number", 5), 
+        this.newInput("unspawn time", "number", 5), this.newInput("bound", "boolean", true), this.newInput("random spawn position", "boolean", true), this.newInput("x", "number", 5), this.newInput("y", "number", 5)]}
+
+        this.indexDecorator(d)
+        break
+      case "Camera Target":
+        d = {name:name, inputs:[]}
+        this.indexDecorator(d)
+        break
       case "Speed":
         d = {name:name, inputs:[this.newInput("Direction", "string", "left"), this.newInput("Speed", "number", 0)]}
         this.indexDecorator(d)
@@ -175,12 +187,12 @@ export class EntityService implements Subject{
           d = {name:name, inputs:[this.newInput("Power", "number", 0), this.newInput("Bounce Time", "number", 0)]}
           this.indexDecorator(d)
           break
-      case "MovementController":
-        d = {name:name, inputs:[this.newInput("Speed", "number", 0)]}
+      case "Top Down Movement":
+        d = {name:name, inputs:[this.newInput("Speed", "number", 0.5)]}
         this.indexDecorator(d)
         break
-      case "PlatformController":
-        d = {name:name, inputs:[this.newInput("Jump Force", "number", 0), this.newInput("Jump Time", "number", 0), this.newInput("Movement Speed", "number", 0)]}
+      case "2D Platform Movement":
+        d = {name:name, inputs:[this.newInput("Jump Force", "number", 0.1), this.newInput("Jump Time", "number", 0.1), this.newInput("Movement Speed", "number", 0.1)]}
         this.indexDecorator(d)
         break
       case "Follow":
@@ -195,14 +207,29 @@ export class EntityService implements Subject{
         d = {name:name, inputs:[this.newInput("Tag", "string", "Enemy")]}
         this.indexDecorator(d)
         break
+      case "Animation on Destroy":
+        d = {name:name, inputs:[this.newInput("Frame", "number", 0)]}
+        this.indexDecorator(d)
+        break
       case "Health-Bar":
-        d = {name:name, inputs:[this.newInput("health", "number", "1"), this.newInput("damage per hit", "number", "1"), this.newInput("hurt by tag", "string", "Enemy")]}
+        d = {name:name, inputs:[this.newInput("health", "number", "1"), this.newInput("damage per hit", "number", "1"), this.newInput("hurt by tag", "string", "Enemy"), this.newInput("animate when hurt", "number", -1)]}
         this.indexDecorator(d)
         break
       case "Trigger Animation on Input":
-        d = {name:name, inputs:[this.newInput("frame", "number", "1"), this.newInput("input key", "string", "w")]}
+        d = {name:name, inputs:[this.newInput("frame", "number", 1), this.newInput("input key", "string", "w")]}
         this.indexDecorator(d)
         break
+      case "Multi-Animation":
+        d = {name:name, inputs:[this.newInput("When Left", "number", 0), this.newInput("When Right", "number", 0), this.newInput("When Down", "number", 0), this.newInput("When Up", "number", 0), this.newInput("input key", "string", " ")]}
+        this.indexDecorator(d)
+        break
+
+      case "Shoot Projectile on Input":
+        d = {name:name, inputs:[this.newInput("Projectile", "entity", null), this.newInput("# of Projectiles", "number", 5), this.newInput("Projectile Speed", "number", 1), this.newInput("time between shots", "number", 1), 
+        this.newInput("unspawn time", "number", 5),  this.newInput("key", "string", "s")]}
+        this.indexDecorator(d)
+        break
+       
     }
 
   }

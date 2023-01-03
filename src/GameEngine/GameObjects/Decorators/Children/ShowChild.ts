@@ -5,6 +5,7 @@ class ShowChild extends AttachEntity{
     constructor(gameEntity:GameEntity, child:GameEntity, bound:boolean, x:number, y:number){
         super(gameEntity, child, bound, x, y)
         child.setActive(false)
+        
 
     }
 
@@ -16,7 +17,9 @@ class ShowChild extends AttachEntity{
             this.child.update()
         } else {
             this.child.setActive(false)
-            super.update()
         }
+
+        super.update()
+
     }
 } export default ShowChild

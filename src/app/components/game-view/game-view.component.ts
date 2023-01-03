@@ -20,13 +20,13 @@ export class GameViewComponent implements AfterViewInit {
   isPlaying:boolean = false
   showError:boolean = false
   private isMouseDown = false
-  private isShiftDown = false
+  isErasing = false
   private id:any
-  columns:number = 48
-  rows:number = 32
+  size = 32
   scale : number = 32
   errorMessage:string = ""
   layer:string = "mainground"
+
   eraserIcon = faEraser
   magPlusIcon = faMagnifyingGlassPlus
   magMinusIcon = faMagnifyingGlassMinus
@@ -47,18 +47,10 @@ export class GameViewComponent implements AfterViewInit {
       this.gameManager?.resize()
     })
 
-    document.addEventListener("keydown", (e:KeyboardEvent)=>{
-      if (e.key == "Shift") this.isShiftDown = true
-    })
-
-    document.addEventListener("keyup", (e:KeyboardEvent)=>{
-      if (e.key == "Shift") this.isShiftDown = false
-    })
-
     this.gameView.nativeElement.addEventListener("mousedown", (e:any)=>{
       this.isMouseDown = true
 
-      if (this.isShiftDown){
+      if (this.isErasing){
         this.removeEntity(e)
       } else {
         this.addEntity(e)
@@ -74,7 +66,7 @@ export class GameViewComponent implements AfterViewInit {
 
     this.gameView.nativeElement.addEventListener("mousemove", (e:any)=>{
       if (this.isMouseDown && !this.showError){
-        if (this.isShiftDown){
+        if (this.isErasing){
           this.removeEntity(e)
         } else {
           this.addEntity(e)
@@ -91,7 +83,8 @@ export class GameViewComponent implements AfterViewInit {
   }
 
   changeSize(){
-    this.levelService.resizeLevel(this.columns, this.rows)
+    console.log(this.size)
+    this.levelService.resizeLevel(this.size, this.size)
     this.render()
   }
 

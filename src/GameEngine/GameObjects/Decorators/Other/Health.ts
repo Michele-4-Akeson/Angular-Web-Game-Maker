@@ -5,11 +5,15 @@ class Health extends EntityDecorator{
     health:number
     damage:number
     byTag:string
-    constructor(gameEntity:GameEntity, health:number, damage:number, byTag:string){
+    canBeHurt:boolean = true
+    delay:number = 1
+    hurtFrame:number
+    constructor(gameEntity:GameEntity, health:number, damage:number, byTag:string, hurtFrame:number){
         super(gameEntity)
         this.health = health
         this.damage = damage
         this.byTag = byTag
+        this.hurtFrame = hurtFrame
 
     }
 
@@ -17,11 +21,25 @@ class Health extends EntityDecorator{
 
     override collisionEvent(gameObject: GameEntity): void {
         if (gameObject.getTag() == this.byTag){
-            this.health -= this.damage
+            if (this.canBeHurt){
+                this.canBeHurt = false
+                this.health -= this.damage
 
-            if (this.health <= 0){
-                this.setActive(false)
+                if (this.hurtFrame >= 0) this.getAnimation()?.startTriggeredAnimation(this.hurtFrame)
+
+                if (this.health <= 0){
+                    this.setActive(false)
+                }
+
+                setTimeout(()=>{
+                    this.canBeHurt = true
+                }, this.delay * 1000)
+
+
             }
+           
         }
     }
+
+    
 } export default Health

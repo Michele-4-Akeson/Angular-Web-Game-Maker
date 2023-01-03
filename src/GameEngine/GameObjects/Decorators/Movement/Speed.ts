@@ -17,7 +17,7 @@ class Speed extends EntityDecorator{
             
             case "left":
                 if (!this.getBoxCollider()?.sideHasCollision(this.direction)){
-                    this.getTransform().moveX(this.speed)
+                    this.getTransform().moveX(-this.speed)
                 }
              
                 break
@@ -28,7 +28,7 @@ class Speed extends EntityDecorator{
                 break
             case "up":
                 if (!this.getBoxCollider()?.sideHasCollision(this.direction)){
-                    this.getTransform().moveY(this.speed)
+                    this.getTransform().moveY(-this.speed)
                 }
              
                 break

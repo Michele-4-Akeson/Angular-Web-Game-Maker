@@ -23,3 +23,7 @@
   display: none;
 }
  
+.homeButton{
+  position: absolute;
+  z-index: 10;
+}

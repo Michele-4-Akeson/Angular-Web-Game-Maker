@@ -47,6 +47,7 @@ html, body {
 .pixelFont{
     font-family: 'Press Start 2P', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 100;
+    
 }
 
 .pageRows{
@@ -97,10 +98,7 @@ html, body {
     
 }
 
-.containerHeader:hover{
-    transform: scale(1.1);
-    background-color: rgb(68, 59, 52);
-}
+
 
 
 
@@ -149,6 +147,7 @@ input:focus{
 
     .pageColumns{
         flex-direction: column;
+        flex-wrap: wrap;
         height: fit-content;
     }
 

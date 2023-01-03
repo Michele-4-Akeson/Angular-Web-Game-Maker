@@ -4,12 +4,17 @@ import EntityDecorator from "../EnityDecorator";
 class AttachEntity extends EntityDecorator{
     child:GameEntity
     bound:boolean
+    offsetX:number
+    offsetY:number
+    hasRef:boolean = false
     constructor(gameEntity:GameEntity, child:GameEntity, bound:boolean, xOffset:number, yOffset:number){
         super(gameEntity)
         this.child = child
         this.bound = bound
+        this.offsetX = xOffset * this.getTransform().getSize()
+        this.offsetY = yOffset * this.getTransform().getSize()
         this.addChild(child)
-        this.applyOffset(xOffset, yOffset)
+        this.applyOffset(this.offsetX, this.offsetY)
         child.setDynmaic(true)
     }
 
@@ -18,6 +23,9 @@ class AttachEntity extends EntityDecorator{
 
     override update(): void {
         if (this.bound){
+            this.followParent()
+        } else if (!this.hasRef){
+            this.hasRef = true
             this.followParent()
         }
 
@@ -42,4 +50,5 @@ class AttachEntity extends EntityDecorator{
         this.child.getTransform().setX(x)
         this.child.getTransform().setY(y)
     }
+    
 } export default AttachEntity

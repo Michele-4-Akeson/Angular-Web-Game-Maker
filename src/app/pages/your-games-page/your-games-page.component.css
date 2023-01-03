@@ -61,7 +61,7 @@
 .IconContainer:hover 
 
 .shareIcon{
-    transition: transform 0.7s, color 0.3s;
+    transition: transform 0.4s, color 0.3s;
 }
 
 .shareIcon:hover{

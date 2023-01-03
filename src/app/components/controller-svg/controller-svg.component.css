@@ -45,12 +45,11 @@
     animation: toRed  var(--animationTime) ease-in-out alternate infinite;
 }
 
-.button:hover{
-    transition: transform 0.1s;
-    transform: scale(1.1);
+.buttonX:hover{
     transform-origin: center;
     transform-box: fill-box;
-    filter: brightness(75%);
+    filter: brightness(150%);
+    animation: none;
 }
 
 

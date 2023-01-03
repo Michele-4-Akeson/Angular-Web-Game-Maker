@@ -76,6 +76,10 @@ class GameObject implements GameEntity{
         if (this.boxCollider){
             this.boxCollider!.dynmaic = state
         }
+
+        if (this.boxTrigger){
+            this.boxTrigger.dynmaic = state
+        }
     }
 
  
@@ -186,9 +190,6 @@ class GameObject implements GameEntity{
     updatePosition(xref: number, yref: number): void {
         if (this.active) {
             this.transform.setRef(xref, yref)
-            for (let child of this.children){
-                child.getTransform().setRef(xref, yref)
-            }
 
             this.updateBoxCollider();
             this.updateZoneCollider();
@@ -206,7 +207,6 @@ class GameObject implements GameEntity{
     updateBoxCollider(){
         if (this.boxCollider != null && this.boxCollider.active){
             this.boxCollider.update(this.transform.getPositionX(), this.transform.getPositionY())
-            //this.boxCollider.active = this.active;
         }
     }        
 
