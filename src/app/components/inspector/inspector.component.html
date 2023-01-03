@@ -16,18 +16,38 @@
 
 <form class="inspector-form">
     <h3 class="inspectorHeader pixelFont">Attributes:</h3>
+    
     <div>
         <app-select-box [items]="entity.getTags()" [start]="entity.getTag()" label="Tag" (onSelect)="setTag($event)"></app-select-box>
     </div>
+    
+    
     <div>
         <app-incrementor label="Size" [value]="entity.getSize()" (onChange)="setSize($event)" [negative]="false"></app-incrementor>
     </div>
-    <app-checkbox label="Dynamic" [isChecked]="entity.getDynamic()" (onCheck)="toggleDynamic($event)"></app-checkbox>
-    <app-checkbox label="BoxCollider" [isChecked]="entity.getBoxCollider()" (onCheck)="toggleBoxCollider($event)"></app-checkbox>
+    
+    
+    <div>
+        <app-checkbox label="BoxCollider" [isChecked]="entity.getBoxCollider().active" (onCheck)="toggleBoxCollider('active', $event)"></app-checkbox>
+        <div *ngIf="entity.getBoxCollider().active" class="ArrowContainer">
+            <h6>Select Active Sides:</h6>
+            <button (click)="toggleBoxCollider('top', !entity.getBoxCollider().top)" title="side is active when green" [ngStyle]="{'background-color': entity.getBoxCollider().top ? 'var(--selectGreen)' : '#ffffff'}"><fa-icon [icon]="upArrow"></fa-icon></button>
+            <div class="MiddleArrows">
+                <button (click)="toggleBoxCollider('left', !entity.getBoxCollider().left)" title="side is active when green" [ngStyle]="{'background-color': entity.getBoxCollider().left ? 'var(--selectGreen)' : '#ffffff'}"><fa-icon [icon]="leftArrow"></fa-icon></button>
+                <button (click)="toggleBoxCollider('right', !entity.getBoxCollider().right)" title="side is active when green" [ngStyle]="{'background-color': entity.getBoxCollider().right ? 'var(--selectGreen)' : '#ffffff'}"><fa-icon [icon]="rightArrow"></fa-icon></button>
+            </div>
+            <button (click)="toggleBoxCollider('bottom', !entity.getBoxCollider().bottom)" title="side is active when green" [ngStyle]="{'background-color': entity.getBoxCollider().bottom ? 'var(--selectGreen)' : '#ffffff'}"><fa-icon [icon]="downArrow"></fa-icon></button>
+        </div>
+    </div>
+    
+
+
     <div>
         <app-checkbox label="BoxTrigger" [isChecked]="entity.getBoxTrigger().active" (onCheck)="toggleBoxTrigger($event)"></app-checkbox>
         <app-incrementor *ngIf="entity.getBoxTrigger().active" label="Box Size" [value]="entity.getBoxTrigger().size" (onChange)="setBoxTriggerSize($event)" [negative]="false"></app-incrementor>
     </div>
+
+
 
     <div class="animationData">
         <app-checkbox label="Animation" [isChecked]="entity.getAnimation().active" (onCheck)="toggleAnimation($event)"></app-checkbox>
@@ -52,6 +72,8 @@
         </form>
     </div>
 </form>
+
+
 
 <app-search-box [items]="entity.getDecoratorNames()" (onSelect)="addDecorator($event)" hint="..."></app-search-box>
 <div class="decorator-list">

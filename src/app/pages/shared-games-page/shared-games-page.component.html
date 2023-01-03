@@ -1,0 +1,12 @@
+<app-home-button></app-home-button>
+
+<div class="game-container">
+    <div (click)="openGame(game.name, game.id)" class="game-item" *ngFor="let game of profile.games">
+            <div class="game-item-text pixelFont">
+                <h4>{{game.name}}</h4>
+                <h5>By:{{game.by}}</h5>
+                <label>Created:{{game.date}}</label>  
+            </div>     
+    </div>
+    
+</div>

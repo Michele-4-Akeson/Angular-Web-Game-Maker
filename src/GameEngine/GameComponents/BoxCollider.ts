@@ -1,5 +1,5 @@
-﻿import GameEntity from "../Interfaces/GameEntity"
-import GameObject from "../GameObjects/GameObject"
+﻿import { BoxColliderData } from "../Interfaces/BoxColliderData"
+import GameEntity from "../Interfaces/GameEntity"
 
 
 interface SideData{
@@ -22,7 +22,7 @@ interface CollisionData {
  * @property {number} x the x position of the gameObject's boxCollider relative to its load position
  * @property {number} y the y position of the gameObject's boxCollider relative to its load position
  * @property {number} size the width and height of the boxCollider
- * @property {boolean} dynamic if the gameObject of the boxCollider moves or is static
+ * @property {boolean} dynamic if the gameObject of the boxCollider moves or is static -- false by default
  * @property {boolean} active indicates if boxCollider is active
  * @property {object} sides an js object storing coordinate data for each side of the boxCollider
  * @property {object} collisionData an js object storing the data describing the collisons of the boxCollider
@@ -40,8 +40,9 @@ class BoxCollider{
     active : boolean
     sides : SideData
     collisionData : CollisionData
+    activeSides: { top: boolean, bottom: boolean, left: boolean, right: boolean }
 
-    constructor(size:number, dynmaic:boolean) {
+    constructor(size:number) {
         // defines the coordinates of an objects boxcollider
         // note: should test if this.x is a constant value, or a reference to a value that changes - thus updates on it's own?? -- does not appear to be the case
 
@@ -51,10 +52,11 @@ class BoxCollider{
         this.x = 0;
         this.y = 0;
         this.size = size;
-        this.dynmaic = dynmaic;
+        this.dynmaic = false;
         this.onScreen = false;
         this.active = true;
         this.sides = { top: this.y, bottom: this.y + size, left: this.x, right: this.x + size}
+        this.activeSides = {top: true, bottom: true, left: true, right: true}
         this.collisionData = { gameObject: null, collisionTag: "none", left: false, right: false, top: false, bottom: false };
         
 
@@ -86,6 +88,7 @@ class BoxCollider{
         this.size = size;
         this.sides = { top: this.y, bottom: this.y + size, left: this.x, right: this.x + size}
     }
+
 
     setActive(state:boolean){
         this.setNoCollision();
@@ -161,9 +164,13 @@ class BoxCollider{
         }
     }
 
-
-    sideHasCollision(direction:string):boolean{
-        switch(direction){
+    /**
+     * checks if there is a collision on a given side (left, right, up, down)
+     * @param side the direction/side to be checked for an exsisting collision
+     * @returns true if a boxCollider has a collision in the respective direction being checked
+     */
+    sideHasCollision(side:string):boolean{
+        switch(side){
             case "left":
                 return this.collisionData.left
             case "right":
@@ -173,11 +180,42 @@ class BoxCollider{
             case "down":
                 return this.collisionData.bottom
             default:
-                console.log("typo in collision - " + direction)
+                console.log("typo in collision - " + side)
                 return false
         }
 
 
+    }
+
+
+    setActiveSides(data:BoxColliderData){
+        this.activeSides.left = data.left
+        this.activeSides.right = data.right
+        this.activeSides.top = data.top
+        this.activeSides.bottom = data.bottom
+    }
+
+    /**
+     * checks if a given side of a boxCollider is active; if it is,
+     * then it can be collided with
+     * @param side the side of the boxCollider
+     * @returns true if the side given can be collided with
+     */
+    canSideCollide(side:string):boolean{
+        switch(side){
+            case "left":
+                return this.activeSides.left
+            case "right":
+                return this.activeSides.right
+            case "top":
+                return this.activeSides.top
+            case "bottom":
+                return this.activeSides.bottom
+            default:
+                console.log("typo in collision - " + side)
+                return false
+        }
+        
     }
     
 

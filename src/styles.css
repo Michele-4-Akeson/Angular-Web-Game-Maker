@@ -10,7 +10,10 @@
     --smCnColor:rgb(73, 71, 88);
     --smHeader:rgb(81, 78, 102);
     --selectGreen: rgb(20, 167, 20);
-    --animationTime:0.8s
+    --buttonColor:rgb(191, 126, 206);
+    --highlightText:white;
+    --textColor:wheat;
+    --animationTime:1s;
 }
 
 
@@ -35,7 +38,8 @@
 html, body {
     margin:0px;
     overflow: hidden;
-    background-color: var(--bgColor);
+    background-image: linear-gradient(to bottom right, var(--bgColor), rgb(31, 29, 42));
+
   }
 
   
@@ -43,6 +47,7 @@ html, body {
 .pixelFont{
     font-family: 'Press Start 2P', 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 100;
+    
 }
 
 .pageRows{
@@ -93,10 +98,7 @@ html, body {
     
 }
 
-.containerHeader:hover{
-    transform: scale(1.1);
-    background-color: rgb(68, 59, 52);
-}
+
 
 
 
@@ -145,9 +147,12 @@ input:focus{
 
     .pageColumns{
         flex-direction: column;
+        flex-wrap: wrap;
         height: fit-content;
     }
 
 
     
   }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

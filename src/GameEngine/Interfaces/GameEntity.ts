@@ -44,6 +44,8 @@ interface GameEntity{
 
     setBoxTrigger(trigger:BoxTrigger | null):void
 
+    setDynmaic(state:boolean):void
+
     /**
      * returns the Tag of a game Entity
      */

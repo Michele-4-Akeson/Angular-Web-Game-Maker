@@ -31,6 +31,8 @@ class TriggerSystem extends CollisionSystem {
                 if (object.getBoxCollider()){
                     this.boxColliderObjects.push(object)
                 }
+
+                this.addGameObjects(object.getChildren())
             }
             
         }
@@ -54,12 +56,11 @@ class TriggerSystem extends CollisionSystem {
         }
     }
 
-
-
+    
     didTrigger(objectA:GameEntity, objectB:GameEntity){
         if (objectB.enabled()){
             this.checkCount += 1;
-            if (objectA != objectB && this.checkforCollision(objectA.getBoxTrigger()!, objectB.getBoxCollider()!)){
+            if (objectA != objectB && this.isOverlapping(objectA.getBoxTrigger()!, objectB.getBoxCollider()!)){
                 this.emmitTriggerEvent(objectA, objectB);
             }
         }
@@ -81,13 +82,9 @@ class TriggerSystem extends CollisionSystem {
      */
     
      override updateCollisionData(collider1: BoxCollider, collider2: BoxCollider): void {
-        // checks distance between the sides of each collider to see which side is colliding
-        this.distanceRight = Math.abs(collider1.sides.right - collider2.sides.left);
-        this.distanceLeft = Math.abs(collider1.sides.left - collider2.sides.right);
-        this.distanceTop = Math.abs(collider1.sides.top - collider2.sides.bottom);
-        this.distanceBottom = Math.abs(collider1.sides.bottom - collider2.sides.top);
+        
 
-        switch(this.sideOfCollision(this.distanceRight, this.distanceLeft, this.distanceTop, this.distanceBottom)){
+        switch(this.getSideOfCollision(collider1, collider2)){
             case "right":
                 collider1.collisionData.right = true;
                 this.collisionList.right = true;
@@ -105,7 +102,10 @@ class TriggerSystem extends CollisionSystem {
                 this.collisionList.bottom = true;
                 break;
         } 
-    }
+     }
+
+
+     
   
 
 

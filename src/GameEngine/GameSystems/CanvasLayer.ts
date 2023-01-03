@@ -10,7 +10,7 @@ import GameEntity from "../Interfaces/GameEntity";
  * @param {HTMLCanvasElement} canvas the canvas element used to draw images on this layer
  * @property {HTMLCanvasElement} canvas the canvas element used to draw images on this layer
  * @property {CanvasContext} drawer property of canvas that allows us to draw on canvas
- * @property {Array<GameObject} layerObjects an array of gameObjects to be drawn on this layer
+ * @property {ArrayGameObject} layerObjects an array of gameObjects to be drawn on this layer
  */
 class CanvasLayer{
   canvas : HTMLCanvasElement

@@ -1,0 +1,107 @@
+:root{
+    --animationTime:0.8s
+  }
+  
+  
+
+  
+
+    
+  svg:hover #bulbBorder{
+    animation: toRed  var(--animationTime) ease-in-out alternate infinite;
+  }
+  
+  svg:hover #bulbInner{
+    animation: toRed  var(--animationTime) ease-in-out alternate infinite;
+    transition: transform 0.5s;
+    transform: scale(1.2);
+    transform-origin: center;
+    transform-box: fill-box;
+    filter: brightness(110%);
+
+  }
+  
+  
+  #lightning{
+    opacity: 0;
+  }
+  
+
+  
+  svg:hover #lightning{
+    animation: show  var(--animationTime) ease-in-out alternate infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+    transition: transform var(--animationTime);
+  
+  }
+
+
+
+  
+  
+  @keyframes toRed{
+    to{
+        stroke: red;
+    }
+  }
+
+ @keyframes toTorq {
+  to{
+    stroke:turquoise
+  }
+  
+ } 
+
+  @keyframes bigger {
+    to{
+      transform: scale(1.3);
+    }
+    
+  }
+  
+  
+  @keyframes brighter {
+    from {
+        filter: brightness(90%);
+    }
+  
+    to {
+        
+        filter: brightness(280%)
+    }
+  }
+  
+  
+
+  @keyframes show {
+   from{
+    opacity: 0;
+   }
+  
+   to{
+    opacity: 1;
+   }
+    
+  }
+  
+  
+  
+  
+  @keyframes shake {
+    0%{
+      
+        transform: translateY(-1px) rotateZ(-1deg)
+  
+      }
+      25%{
+        transform: translateX(1px)  rotateZ(-2deg);
+      }
+        
+      50%{
+        transform: translateX(-1px) rotateZ(1deg);
+      }
+      100%{
+        transform: translateX(1px)  rotateZ(2deg);
+      }
+  }

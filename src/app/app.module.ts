@@ -14,6 +14,18 @@ import { DecoratorItemComponent } from './components/decorator-item/decorator-it
 import { AssetBoxComponent } from './components/asset-box/asset-box.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ControllerSvgComponent } from './components/controller-svg/controller-svg.component';
+
+import { AppRoutingModule } from './routing/app-routing.module';
+
+import { YourGamesPageComponent } from './pages/your-games-page/your-games-page.component';
+import { SharedGamesPageComponent } from './pages/shared-games-page/shared-games-page.component';
+import { EditorPageComponent } from './pages/editor-page/editor-page.component';
+import { GamePageComponent } from './pages/game-page/game-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { RobotSVGComponent } from './components/robot-svg/robot-svg.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { HomeButtonComponent } from './components/home-button/home-button.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,9 +39,18 @@ import { ControllerSvgComponent } from './components/controller-svg/controller-s
     DecoratorItemComponent,
     AssetBoxComponent,
     ControllerSvgComponent,
+    LoginPageComponent,
+    YourGamesPageComponent,
+    SharedGamesPageComponent,
+    EditorPageComponent,
+    GamePageComponent,
+    RobotSVGComponent,
+    HomePageComponent,
+    HomeButtonComponent,
+    
   ],
   imports: [
-    BrowserModule, FormsModule, FontAwesomeModule
+    BrowserModule, FormsModule, FontAwesomeModule, AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

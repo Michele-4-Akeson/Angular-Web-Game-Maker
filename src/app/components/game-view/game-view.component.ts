@@ -3,6 +3,8 @@ import { EntityService } from 'src/app/services/entity.service';
 import { LevelService } from 'src/app/services/level.service';
 import GameManager from 'src/GameEngine/GameSystems/GameManager';
 import { faEraser, faClose, faUpload, faMagnifyingGlassPlus, faMagnifyingGlassMinus, faChartArea, faPlayCircle, faPauseCircle } from '@fortawesome/free-solid-svg-icons';
+import { ProfileService } from 'src/app/services/profile.service';
+import Camera from 'src/GameEngine/GameSystems/Camera';
 
 
 @Component({
@@ -18,13 +20,13 @@ export class GameViewComponent implements AfterViewInit {
   isPlaying:boolean = false
   showError:boolean = false
   private isMouseDown = false
-  private isShiftDown = false
+  isErasing = false
   private id:any
-  columns:number = 48
-  rows:number = 32
+  size = 32
   scale : number = 32
   errorMessage:string = ""
   layer:string = "mainground"
+
   eraserIcon = faEraser
   magPlusIcon = faMagnifyingGlassPlus
   magMinusIcon = faMagnifyingGlassMinus
@@ -33,7 +35,7 @@ export class GameViewComponent implements AfterViewInit {
   pauseIcon = faPauseCircle
   closeIcon = faClose
   export = faUpload
-  constructor(private entityService:EntityService, private levelService:LevelService) { }
+  constructor(private entityService:EntityService, private levelService:LevelService, private profile:ProfileService) { }
 
   
 
@@ -45,18 +47,10 @@ export class GameViewComponent implements AfterViewInit {
       this.gameManager?.resize()
     })
 
-    document.addEventListener("keydown", (e:KeyboardEvent)=>{
-      if (e.key == "Shift") this.isShiftDown = true
-    })
-
-    document.addEventListener("keyup", (e:KeyboardEvent)=>{
-      if (e.key == "Shift") this.isShiftDown = false
-    })
-
     this.gameView.nativeElement.addEventListener("mousedown", (e:any)=>{
       this.isMouseDown = true
 
-      if (this.isShiftDown){
+      if (this.isErasing){
         this.removeEntity(e)
       } else {
         this.addEntity(e)
@@ -72,7 +66,7 @@ export class GameViewComponent implements AfterViewInit {
 
     this.gameView.nativeElement.addEventListener("mousemove", (e:any)=>{
       if (this.isMouseDown && !this.showError){
-        if (this.isShiftDown){
+        if (this.isErasing){
           this.removeEntity(e)
         } else {
           this.addEntity(e)
@@ -82,23 +76,28 @@ export class GameViewComponent implements AfterViewInit {
       
     })
 
+    setTimeout(()=>{
+      this.render()
+    }, 750)
+
   }
 
   changeSize(){
-    this.levelService.resizeLevel(this.columns, this.rows)
-    this.preview()
+    console.log(this.size)
+    this.levelService.resizeLevel(this.size, this.size)
+    this.render()
   }
 
   increaseZoom(){
     this.scale += 4
     this.levelService.setScale(this.scale)
-    this.preview()
+    this.render()
   }
 
   decreaseZoom(){
     this.scale -= 4
     this.levelService.setScale(this.scale)
-    this.preview()
+    this.render()
   }
   
 
@@ -112,7 +111,7 @@ export class GameViewComponent implements AfterViewInit {
     } else {
       try{
         this.levelService.addEntity(position, this.entityService.createEntity())
-        this.preview()
+        this.render()
       } catch(e:any){
         console.log(e)
         this.errorMessage = e.message
@@ -121,7 +120,7 @@ export class GameViewComponent implements AfterViewInit {
           this.errorMessage += " => The entity '" + this.entityService.getName() + "' created an infinite recursion as it's attached to an object that's attached to it "
         }
         this.levelService.makeLevel()
-        this.preview()
+        this.render()
 
         this.showError = true
         
@@ -142,7 +141,7 @@ export class GameViewComponent implements AfterViewInit {
   removeEntity(e:any){
     const position = this.getCanvasCoordinates(e)
     this.levelService.removeEntity(position)
-    this.preview()
+    this.render()
 
   }
 
@@ -157,14 +156,18 @@ export class GameViewComponent implements AfterViewInit {
  }
 
 
- preview(){
+ render(){
+  this.gameManager?.renderLevel(this.levelService.getLevelData())
+}
+
+buildPreview(){
   this.gameManager?.loadLevel(this.levelService.getLevelData())
   this.gameManager?.update()
 }
 
 clearScene(){
   this.levelService.makeLevel()
-  this.preview()
+  this.render()
 }
 
 
@@ -172,10 +175,11 @@ play(){
   if (this.isPlaying) {
     cancelAnimationFrame(this.id)
     this.isPlaying = false
-    this.preview()
+    this.render()
   }
   else {
     this.isPlaying = true
+    this.buildPreview()
     this.gameLoop()
   }
   
@@ -184,7 +188,6 @@ play(){
 gameLoop(){
   this.gameManager?.update()
   this.id = requestAnimationFrame(this.gameLoop.bind(this))
-  console.log("x")
 }
 
 
@@ -205,5 +208,14 @@ switchLayer(){
 exportJson(){
   this.levelService.exportToJsonFile()
 }
+
+
+/**
+ * calls the service perform a post request to the backend, adding the games data
+ */
+saveGame(){
+  this.profile.saveGame()
+}
+
 
 }

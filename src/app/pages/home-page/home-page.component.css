@@ -1,0 +1,71 @@
+.home-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+    gap: 20px;
+}
+
+.home-container > *{
+    border-radius: 5px;
+    background-color: var(--bgColor);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-around;
+    text-align: center;
+    color:var(--textColor);
+    width: 250px;
+    height: 250px;
+    
+}
+
+.home-container > *:active{
+    background-color: var(--selectGreen);
+    transform: scale(1.3);
+
+}
+
+.home-container > *:hover{
+    color: var(--highlightText);
+}
+
+
+
+#Hammer{
+    transform: scaleX(1);
+    transform-origin: center;
+}
+
+
+#hammerTop{
+    stroke: rgb(255, 255, 255);
+}
+
+#hammerBottom{
+    stroke: rgb(180, 180, 180);
+}
+
+
+
+.HammerDiv:hover #Hammer{
+    animation: Rotate var(--animationTime) ease-in-out alternate infinite;
+
+}
+
+
+
+
+
+
+@keyframes Rotate {
+    to{
+        transform: rotate(-80deg);
+    }
+    
+}

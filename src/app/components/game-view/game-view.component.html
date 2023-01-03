@@ -1,18 +1,17 @@
 
 
-<div>
-    
+<div class="GameButtonContainer">
     <button class="game-view-button" [ngStyle]="isPlaying? {'background-color':'var(--selectGreen)'}:{'background-color':'var(--smHeader)'}" (click)="play()">
-        <fa-icon *ngIf="!isPlaying" [icon]="playIcon"></fa-icon>
-        <fa-icon *ngIf="isPlaying" [icon]="pauseIcon"></fa-icon>
+        <fa-icon class="fa-lg" *ngIf="!isPlaying" [icon]="playIcon"></fa-icon>
+        <fa-icon class="fa-lg" *ngIf="isPlaying" [icon]="pauseIcon"></fa-icon>
     </button>
 
-    <button class="game-view-button" (click)="decreaseZoom()"><fa-icon [icon]="magMinusIcon"></fa-icon></button>
-    <button class="game-view-button" (click)="increaseZoom()"><fa-icon [icon]="magPlusIcon"></fa-icon></button>
+    <button class="game-view-button" (click)="decreaseZoom()"><fa-icon class="fa-lg" [icon]="magMinusIcon"></fa-icon></button>
+    <button class="game-view-button" (click)="increaseZoom()"><fa-icon class="fa-lg" [icon]="magPlusIcon"></fa-icon></button>
+    <button class="game-view-button" [ngStyle]="{'background-color': isErasing ? 'var(--selectGreen)' : 'var(--smHeader)'}" (click)="isErasing=!isErasing"><fa-icon class="fa-lg" [icon]="eraserIcon"></fa-icon></button>    
+    <button class="pixelFont save-button"  (click)="saveGame()">Save Game</button>
 
-    <label>Layer:</label>
-    <button class="game-view-button" (click)="switchLayer()">{{layer}}</button>
-
+    
 </div>
 
 
@@ -21,15 +20,16 @@
     <canvas id="mainground"></canvas>
     <canvas id="foreground"></canvas>
 </div>
+    <div class="GameButtonContainer">
+        <label>Layer:</label>
+        <button class="game-view-button" (click)="switchLayer()">{{layer}}</button>
+        <label>Game Size:</label>
+        <input name="size" type="number" [(ngModel)]="size"/>
+        <button class="game-view-button" (click)="changeSize()">Change Size</button>
+        <button class="game-view-button" (click)="clearScene()">Clear Game</button>
+    </div>
 
-<form class="column-row-form" (ngSubmit)="changeSize()">
-    <label>Width:</label>
-    <input name="columns" type="number" [(ngModel)]="columns"/>
-    <label>Height:</label>
-    <input name="rows" type="number" [(ngModel)]="rows"/>
-    <button class="game-view-button" (click)="changeSize()">Change Game Size <fa-icon [icon]="chart"></fa-icon></button>
-    <button class="game-view-button" (click)="clearScene()">Clear <fa-icon [icon]="eraserIcon"></fa-icon></button>
-</form>
+
 
 <div *ngIf="showError" class="errorContainer pixelFont">
     <p class="errorMessage">{{errorMessage}}</p>

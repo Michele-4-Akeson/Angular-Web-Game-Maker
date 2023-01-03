@@ -1,0 +1,29 @@
+<div class="login-container">
+  <h1 class="pixelFont login-header">HIPPO ENGINE</h1>
+  
+  <app-robot-svg></app-robot-svg>
+  <form (ngSubmit)="signIn()">
+      <h3>{{message}}</h3>
+      <label>Username:</label>
+      <input name="username" required value="username" type="text" [(ngModel)]="username"/>
+      <label>Password:</label>
+      <input name="password" required value="password" type="password" [(ngModel)]="password"/>
+
+      <button class="pixelFont" type="submit">{{pageText}}</button>
+
+      <div class="radio-container">
+        <div (click)="setLoggingIn(true)">
+          <input type="radio" name="login-radio" id="login" checked>
+          <label for="login">Login</label>
+        </div>
+  
+        <div (click)="setLoggingIn(false)">
+          <input type="radio" name="login-radio"  id="signup">
+          <label for="signup">Signup</label>
+        </div>
+      </div>
+    </form>
+    <a routerLink="hippo-game-builder">try building a quick game</a>
+</div>
+
+  

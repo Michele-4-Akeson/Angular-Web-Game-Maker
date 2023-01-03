@@ -132,18 +132,23 @@ class GameManager implements Subject {
         this.graphicsSystem.addAll("mainground", this.loadedLevel!.mainground);
         this.graphicsSystem.addAll("foreground", this.loadedLevel!.foreground);
 
+        
         this.animationSystem.addAnimations(this.loadedLevel!.background);
         this.animationSystem.addAnimations(this.loadedLevel!.mainground);
         this.animationSystem.addAnimations(this.loadedLevel!.foreground);
 
         this.collisionSystem.addGameObjects(this.loadedLevel!.background);
         this.collisionSystem.addGameObjects(this.loadedLevel!.mainground);
+        this.collisionSystem.addGameObjects(this.loadedLevel!.foreground);
+
 
         this.triggerSystem.addGameObjects(this.loadedLevel!.mainground);
 
         if (this.player != null){
             this.camera.setToFollow(this.loadedLevel!, this.player)
         }
+
+        
 
     }
 
@@ -154,6 +159,7 @@ class GameManager implements Subject {
             sub.subjectUpdate(type, key)
         }
     }
+
     addSub(subscriber: Subscriber): void {
         this.subscribers.push(subscriber)
     }
@@ -191,7 +197,8 @@ class GameManager implements Subject {
         let object;
         for (let x = this.loadingArea.x_min; x < this.loadingArea.x_max; x++) {
             for (let y = this.loadingArea.y_min; y < this.loadingArea.y_max; y++) {
-                object = map[y * this.loadedLevel!.columns + x];// Object located at relative map location
+                // Object located at relative map location -- (column x, row y)
+                object = map[y * this.loadedLevel!.columns + x];
 
                 if (object != null) {
                     if (object != this.camera.target) {
@@ -282,6 +289,7 @@ class GameManager implements Subject {
     }
 
 
+
     /**
      * generates a level using a .json file and sets it to be played
      * @param {string} jsonFile name of the .json file containing level data
@@ -297,10 +305,41 @@ class GameManager implements Subject {
     loadLevel(level:LevelData){
         this.levelGenerator.build(level)
         this.player = this.levelGenerator.player
-        console.log(this.player)
         this.setloadedLevel(this.levelGenerator.loadedLevel!);
         
     }
+
+
+    /**
+     * renders the graphics of a level: where objects are on the map -
+     * isn't impacted by logic that would move the camera aroudn such
+     * as having the player be followed
+     * @param level 
+     */
+    renderLevel(level:LevelData){
+        this.levelGenerator.build(level)
+        this.loadedLevel = this.levelGenerator.loadedLevel
+        this.graphicsSystem.reset()
+        this.camera.reset()
+
+        this.graphicsSystem.addAll("background", this.loadedLevel!.background);
+        this.graphicsSystem.addAll("mainground", this.loadedLevel!.mainground);
+        this.graphicsSystem.addAll("foreground", this.loadedLevel!.foreground);
+
+        this.updateLoadingArea();
+        this.deactivate()
+        this.activate();
+        this.updateGameObjects();
+        this.graphicsSystem.update()
+
+
+
+
+
+
+
+    }
+
 
     resize(){
         this.graphicsSystem.adjustCanvas()

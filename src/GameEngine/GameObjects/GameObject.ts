@@ -37,17 +37,18 @@ class GameObject implements GameEntity{
     protected boxTrigger : BoxTrigger | null
     protected children : GameEntity[]
 
-    constructor(size:number, dynamic:boolean, tag:string){
+    constructor(size:number, tag:string){
         this.transform = new Transform(0, 0, size)
         this.onScreen = true;
         this.active = true;
         this.tag = tag;
         this.animation = null
-        this.boxCollider = new BoxCollider(size, dynamic);
+        this.boxCollider = new BoxCollider(size);
         this.boxTrigger = null
         this.children = [];
 
     }
+   
  
  
 
@@ -70,6 +71,17 @@ class GameObject implements GameEntity{
     setBoxCollider(boxCollider: BoxCollider | null): void {
         this.boxCollider = boxCollider
     }
+
+    setDynmaic(state: boolean): void {
+        if (this.boxCollider){
+            this.boxCollider!.dynmaic = state
+        }
+
+        if (this.boxTrigger){
+            this.boxTrigger.dynmaic = state
+        }
+    }
+
  
 
    
@@ -178,9 +190,6 @@ class GameObject implements GameEntity{
     updatePosition(xref: number, yref: number): void {
         if (this.active) {
             this.transform.setRef(xref, yref)
-            for (let child of this.children){
-                child.getTransform().setRef(xref, yref)
-            }
 
             this.updateBoxCollider();
             this.updateZoneCollider();
@@ -198,7 +207,6 @@ class GameObject implements GameEntity{
     updateBoxCollider(){
         if (this.boxCollider != null && this.boxCollider.active){
             this.boxCollider.update(this.transform.getPositionX(), this.transform.getPositionY())
-            //this.boxCollider.active = this.active;
         }
     }        
 

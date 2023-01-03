@@ -1,0 +1,120 @@
+.h1{
+    color: var(--textColor);
+}
+.game-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 80%;
+    gap: 20px;
+    overflow-y:auto;
+}
+
+.game-container > *{
+    border-radius: 5px;
+    background-color: var(--bgColor);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-around;
+    text-align: center;
+    color:var(--textColor);
+    width: 250px;
+    height: 250px;
+    
+}
+
+
+
+.game-container > *:hover{
+    background-color: var(--smHeader);
+    color: var(--highlightText);
+}
+
+.game-container > *:active{
+    background-color: var(--selectGreen);
+    transform: scale(1.3);
+
+}
+
+.game-item-text{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+    height: 80%;
+}
+
+
+.IconContainer{  
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.IconContainer:hover 
+
+.shareIcon{
+    transition: transform 0.7s, color 0.3s;
+}
+
+.shareIcon:hover{
+    color: var(--selectGreen);
+    transform: scale(1.4);
+}
+
+
+.trashIcon{
+    transition: transform 0.7s, color 0.3s;
+}
+
+.trashIcon:hover{
+    color: red;
+    transform: scale(1.4);
+}
+
+
+
+
+.new-game form{
+    background-color: var(--smHeader);
+    margin: 5px;
+    width: 85%;
+    height: 85%;
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    
+}
+
+.new-game input {
+    background-color: var(--bgColor);
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    padding: 5px;
+    width: 50%;
+}
+
+.new-game button{
+    background-color: turquoise;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    transition: transform 0.5s, background-color 0.5s;
+}
+
+.new-game button:hover{
+    background-color: rgb(77, 238, 222);
+    transform: scale(1.2);
+}
+
