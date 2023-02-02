@@ -6,7 +6,7 @@ import { LevelService } from './level.service';
 import {nanoid} from 'nanoid'
 
 
-const backendURL = "http://localhost:5000/" || "https://hippo-engine-backend.onrender.com/" || "http://localhost:5000/"
+const backendURL = "https://hippo-engine-backend.onrender.com/" || "http://localhost:5000/"
 const HIPPO_TOKEN:string = "HIPPO_TOKEN"
 const HIPPO_USERNAME:string = "HIPPO_USERNAME"
 const HIPPO_PASSWORD:string = "HIPPO_PASSWORD"
