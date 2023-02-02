@@ -1,20 +1,22 @@
 # **ANGULAR-GAME-MAKER: HIPPO ENGINE**
 ### **Description:**
-A web based Game Engine made using only Angular, Typscript, HTML, and CSS, designed specifically for _2D_ game development 
+A web based Game Engine designed specifically for _2D_ game development, and made using only Angular, Typscript, HTML, and CSS. 
 ![](./src/assets/hippogm.PNG)
 
 
 ### **Link To Site:**
 [site](https://glittering-pavlova-cf89fa.netlify.app)
 
-### **Early Project Demo:**
+### **Early Project Demo (Before being a Game Engine):**
 [demo](https://youtu.be/22Wo9riPfmc)
 
 ## **Autor:**
 Michele Akeson
 
 ### **Purpose/Use:**
-This Game Maker is designed to help users design simple 2D games (either top-down or side-view) which can be run efficiently in the browser, due to several system optimizations. The Hippo Engine Game Maker uses several **OOP design patterns**, specifcally the Decorator, and Observer patterns, allowing more robust code that is flexible and easily extendable
+The Hippo Game Engine is designed to help users design really simple 2D games (either top-down or side-view) which can be run efficiently in the browser, due to several system optimizations. The Hippo Game Engine uses several **OOP design patterns**, specifcally the Decorator, and Observer patterns, allowing for more robust code that is flexible and easily extendable.
+- Users can create an account
+- Create personal games, save them to edit later, and share those games publicly with other users of the Hippo Engine
 
 
 
@@ -24,4 +26,4 @@ This is the provided public repo for the Angular Web Game Maker (informally know
 
 ### **TO DO:**
 1. Create more features/abilities that can be added to game entities
-2. Update child gameObject collision detection
+

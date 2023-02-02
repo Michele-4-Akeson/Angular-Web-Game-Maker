@@ -6,7 +6,7 @@ import { LevelService } from './level.service';
 import {nanoid} from 'nanoid'
 
 
-const backendURL = "https://hippo-engine-backend.onrender.com/" || "http://localhost:5000/"
+const backendURL = "http://localhost:5000/" || "https://hippo-engine-backend.onrender.com/" || "http://localhost:5000/"
 const HIPPO_TOKEN:string = "HIPPO_TOKEN"
 const HIPPO_USERNAME:string = "HIPPO_USERNAME"
 const HIPPO_PASSWORD:string = "HIPPO_PASSWORD"
@@ -172,18 +172,46 @@ export class ProfileService {
 
 
 
-  
+  /**
+   * saveGame() breaks up the data of a HippoGame into smaller portions and sends them over
+   * a HTTP PUT request as not to exceed payload issues (which were faced in inital build of applciation)
+   * @returns true if save of game on backend was successfuly and false otherwise
+   */
   async saveGame(): Promise<boolean>{
-   const gameData = this.getDataFromLevelEditor()
+    const dataForGame : HippoGame = this.getDataFromLevelEditor()
+    const gameID = {token:dataForGame.token, id:dataForGame.id, name:dataForGame.name}
+    const gameAttributes = {scale:dataForGame.gameData.levelData.scale, columns:dataForGame.gameData.levelData.columns, rows:dataForGame.gameData.levelData.rows}
+    const gameAssets = {assets:dataForGame.gameData.assets, savedEntities:dataForGame.gameData.savedEntities}
+    const background = dataForGame.gameData.levelData.background
+    const mainground = dataForGame.gameData.levelData.mainground
 
-    try{
-      const response = await fetch(backendURL + gamePath, {
+
+    const response1 = await this.saveAttributes(gameID, gameAttributes)
+    const response2 = await this.saveAssets(gameID, gameAssets)
+    const response3 = await this.saveLayer(gameID, background, "background")
+    const response4 = await this.saveLayer(gameID, mainground, "mainground")
+    if (response1 && response2 && response3 && response4){
+      return true
+    } 
+
+
+
+    return false
+
+
+  }
+
+  
+  async saveAttributes(gameID:Object, gameAttributes:Object):Promise<boolean>{
+     // sends data for gameAttributes
+     try{
+      const response = await fetch(backendURL + gamePath + "/attributes", {
         method:"PUT",
         headers: {
           "Content-Type":"application/json",
           "Accept":"application/json"
         },
-        body: JSON.stringify({gameData:gameData})
+        body: JSON.stringify({gameID, gameAttributes})
       });
 
       const data = await response.json()
@@ -193,12 +221,85 @@ export class ProfileService {
       } else {
         return false
       }
+
+      
     } catch (error) {
       console.log(error);
       return false
     }
 
   }
+
+
+  
+  async saveAssets(gameID:Object, gameAssets:Object):Promise<boolean>{
+    // sends data for gameAssets
+    try{
+     const response = await fetch(backendURL + gamePath + "/assets", {
+       method:"PUT",
+       headers: {
+         "Content-Type":"application/json",
+         "Accept":"application/json"
+       },
+       body: JSON.stringify({gameID, gameAssets})
+     });
+
+     const data = await response.json()
+     
+     if (data.success){
+       return true
+     } else {
+       return false
+     }
+
+     
+   } catch (error) {
+     console.log(error);
+     return false
+   }
+
+ }
+
+
+ /**
+  * saves the array of strings repersenting gameObjects in a layer to a background
+  * @param gameID 
+  * @param gameLayer 
+  * @param target 
+  * @returns 
+  */
+ async saveLayer(gameID:Object, gameLayer:any, target:string):Promise<boolean>{
+  // sends data for layer
+  try{
+   const response = await fetch(backendURL + gamePath + "/layer", {
+     method:"PUT",
+     headers: {
+       "Content-Type":"application/json",
+       "Accept":"application/json"
+     },
+     body: JSON.stringify({gameID, layer:gameLayer, target:target})
+   });
+
+   const data = await response.json()
+   
+   if (data.success){
+     return true
+   } else {
+     return false
+   }
+
+   
+ } catch (error) {
+   console.log(error);
+   return false
+ }
+
+}
+
+
+
+
+
 
 
   
@@ -421,7 +522,7 @@ export class ProfileService {
    * the level editor
    */
   getDataFromLevelEditor(){
-    const gameData:HippoGame = {
+    const dataForGame:HippoGame = {
       name: this.levelService.name, by: this.username, date: this.displayDate(),
       id: this.levelService.id,
       token: this.token,
@@ -429,7 +530,7 @@ export class ProfileService {
       gameData: {assets: this.entityService.assetList, savedEntities: this.entityService.savedEntities, levelData: this.levelService.getLevelData()}
     }
 
-    return gameData
+    return dataForGame
 
   }
 

@@ -64,19 +64,23 @@ router.post("/", async function(req, res){
 
 })
 
+
+
 /**
  * updates a given game in the game collection with a new set of 
  * data, based on the name, token, and id of the game
  */
-router.put("/", async function(req, res){
+router.put("/attributes", async function(req, res){
     try{
-        console.log("PUT/game REQUEST CALLED");
-        const gameData = req.body.gameData;
-        console.log(gameData.token, gameData.id, gameData.name)
-        const updateResult = await games.replaceOne({token:gameData.token, id:gameData.id, name:gameData.name}, gameData);
+        console.log("PUT/game/attributes REQUEST CALLED");
+        const gameID = req.body.gameID;
+        const gameAttributes = req.body.gameAttributes
+        console.log(gameID, gameAttributes)
+        const updateResult = await games.updateOne({token:gameID.token, id:gameID.id, name:gameID.name}, 
+            {$set:{"gameData.levelData.scale":gameAttributes.scale, "gameData.LevelData.columns":gameAttributes.columns,  "gameData.LevelData.rows":gameAttributes.rows}});
 
         console.log(updateResult)
-        res.json({success:updateResult.modifiedCount == 1});
+        res.json({success:updateResult.modifiedCount != 0});
         
 
     } catch (error){
@@ -84,6 +88,66 @@ router.put("/", async function(req, res){
     }
 
 })
+
+
+/**
+ * updates a given game in the game collection with a new set of 
+ * data, based on the name, token, and id of the game
+ */
+router.put("/assets", async function(req, res){
+    try{
+        console.log("PUT/game/assets REQUEST CALLED");
+        const gameID = req.body.gameID;
+        const gameAssets = req.body.gameAssets
+        console.log(gameID, gameAssets)
+        const updateResult = await games.updateOne({token:gameID.token, id:gameID.id, name:gameID.name}, 
+            {$set:{"gameData.assets":gameAssets.assets, "gameData.savedEntities":gameAssets.savedEntities}})
+
+        console.log(updateResult)
+        res.json({success:updateResult.modifiedCount != 0});
+        
+
+    } catch (error){
+        console.log(error);
+    }
+
+})
+
+
+/**
+ * updates a given game in the game collection with a new set of 
+ * data, based on the name, token, and id of the game
+ */
+router.put("/layer", async function(req, res){
+    try{
+        console.log("PUT/game/layer REQUEST CALLED");
+        const gameID = req.body.gameID;
+        const gamelayer = req.body.layer
+        const target = req.body.target
+        console.log(gameID, target)
+
+        if (target == "background") {
+            const updateResult = await games.updateOne({token:gameID.token, id:gameID.id, name:gameID.name}, {$set:{"gameData.levelData.background": gamelayer}})
+            console.log(updateResult)
+            res.json({success:updateResult.modifiedCount != 0});
+        } else {
+            const updateResult = await games.updateOne({token:gameID.token, id:gameID.id, name:gameID.name}, {$set:{"gameData.levelData.mainground": gamelayer}})
+            console.log(updateResult)
+            res.json({success:updateResult.modifiedCount != 0});
+        }
+
+       
+       
+        
+
+    } catch (error){
+        console.log(error);
+    }
+
+})
+
+
+
 
 
 router.put("/shared", async function(req, res){
@@ -97,7 +161,7 @@ router.put("/shared", async function(req, res){
         const updateResult = await games.updateOne({name:name, id:id, token:token}, {$set:{shared:shared}})
 
         console.log(updateResult)
-        res.json({success:updateResult.modifiedCount == 1});
+        res.json({success:updateResult.modifiedCount != 0});
         
 
     } catch (error){
