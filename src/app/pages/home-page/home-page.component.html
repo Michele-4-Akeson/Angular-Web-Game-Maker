@@ -1,5 +1,5 @@
-    
-<div class="home-container">
+<app-loader *ngIf="isLoading"></app-loader>    
+<div *ngIf="!isLoading" class="home-container">
     <div (click)="goTo('')">
         <fa-icon class="fa-5x" [icon]="signOut"></fa-icon>
         <h3 class="pixelFont">LOG OUT</h3>
@@ -17,10 +17,6 @@
   
 
     <app-controller-svg class="controllerDiv" (click)="goTo('shared-hippo-games')" text="PLAY GAMES"></app-controller-svg>
-
-   
-
- 
 </div>
     
 

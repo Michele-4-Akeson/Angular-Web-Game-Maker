@@ -9,10 +9,12 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 })
 export class HomePageComponent {
   signOut = faSignOutAlt
+  isLoading:boolean = false
   constructor(private profile:ProfileService, private router:Router){}
 
   async goTo(route:string){
     let dataRetrieved = null
+    this.isLoading = true
     switch(route){
       case "your-hippo-games":
         dataRetrieved = await this.profile.getUserGames()

@@ -25,6 +25,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { RobotSVGComponent } from './components/robot-svg/robot-svg.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { HomeButtonComponent } from './components/home-button/home-button.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { HomeButtonComponent } from './components/home-button/home-button.compon
     RobotSVGComponent,
     HomePageComponent,
     HomeButtonComponent,
+    LoaderComponent,
     
   ],
   imports: [

@@ -1,5 +1,4 @@
 <app-home-button></app-home-button>
-
 <div class="game-container">
     <div (click)="creatingGame=true" class="new-game">
         <h3 *ngIf="!creatingGame">Create a New Game +</h3>
@@ -16,7 +15,7 @@
             </div>
                 
             <div class="IconContainer">
-                <fa-icon class="shareIcon fa-2x" [ngStyle]="{'color': game.shared ? 'var(--selectGreen)' : '#ffffff'}" [icon]="shareIcon" title="share {{game.name}} with other users" (click)="toggleShare(game.name, game.id)"></fa-icon>
+                <fa-icon class="shareIcon fa-2x" [ngStyle]="{'color': game.shared ? 'var(--hippo)' : '#ffffff'}" [icon]="shareIcon" title="share {{game.name}} with other users" (click)="toggleShare(game.name, game.id)"></fa-icon>
                 <fa-icon class="trashIcon fa-2x" [icon]="trashIcon" title="delete {{game.name}}" (click)="delete(game.name, game.id)"></fa-icon>
             </div>
            

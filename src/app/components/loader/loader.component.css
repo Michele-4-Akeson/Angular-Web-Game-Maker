@@ -1,0 +1,46 @@
+
+  /* Apply the animation to the icon */
+.LoaderContainer{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+}
+
+.TwoCogs{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    animation: spin 5s infinite linear;
+    transform-origin: center;
+}
+
+  .LoadIcon {
+    animation: spin 8s infinite linear;
+    transform-origin: center;
+  }
+
+  .LoadIcon-r {
+    animation: spin 2s infinite linear reverse;
+    transform-origin: center;
+  }
+
+  /* Define the animation */
+@keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .rocket{
+    animation: spin 1s infinite linear;
+    transform: rotate(25deg);
+  }

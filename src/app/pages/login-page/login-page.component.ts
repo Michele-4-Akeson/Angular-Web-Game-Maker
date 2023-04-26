@@ -15,6 +15,7 @@ export class LoginPageComponent {
   username:string = this.profile.username
   password:string = this.profile.password
   loggingIn:boolean = true
+  isLoading:boolean = false
   message:string = loginAccount
   pageText:string = "Login"
   constructor(private profile:ProfileService, private router:Router) { }
@@ -37,11 +38,12 @@ export class LoginPageComponent {
    */
   async login(){
     //get request to see if account exsists
-    console.log(this.username, this.password)
+    this.isLoading = true
     if (this.username != "" && this.password != ""){
       let response = await this.profile.login(this.username, this.password)
-      this.message = "loading..."
+      
       if (!response){
+        this.isLoading = false
         alert("unable to login to account")
         this.message = loginAccount
 
@@ -50,6 +52,7 @@ export class LoginPageComponent {
       
     } else {
       alert("unable to register new account: 'missing username or password'")
+      this.isLoading =false
 
     }
 
@@ -58,17 +61,21 @@ export class LoginPageComponent {
    
 
   async register(){
+    this.isLoading = true
     if (this.username != "" && this.password != ""){
       let response = await this.profile.register(this.username, this.password) 
-      this.message = "loading..."
 
       if (!response){
         alert("unable to register new account: 'username already in use'")
+        this.isLoading = false
+
         
         
       }
     } else {
       alert("unable to register new account: 'missing username or password'")
+      this.isLoading = false
+
 
     }
 

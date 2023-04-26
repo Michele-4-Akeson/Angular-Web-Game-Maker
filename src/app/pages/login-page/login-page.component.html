@@ -1,6 +1,7 @@
-<div class="login-container">
+<app-loader *ngIf="isLoading"></app-loader>
+
+<div *ngIf="!isLoading" class="login-container">
   <h1 class="pixelFont login-header">HIPPO ENGINE</h1>
-  
   <app-robot-svg></app-robot-svg>
   <form (ngSubmit)="signIn()">
       <h3>{{message}}</h3>

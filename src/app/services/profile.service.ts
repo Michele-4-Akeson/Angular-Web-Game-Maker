@@ -377,6 +377,10 @@ export class ProfileService {
   
 
   /**
+   * NOTe: should change just to get names, ids, and dates of games, such that
+   * when a game is picked, another http request is made to get data
+   * 
+   * 
    * performs an http request where all games owned by a user are retrieved from
    * the Games collection of the database, storing that data in the field, gameData.
    * The games owned by the user are determiend by the user's token

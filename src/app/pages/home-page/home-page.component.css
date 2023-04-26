@@ -27,7 +27,7 @@
 
 .home-container > *:active{
     background-color: var(--selectGreen);
-    transform: scale(1.3);
+    transform: scale(1.1);
 
 }
 
